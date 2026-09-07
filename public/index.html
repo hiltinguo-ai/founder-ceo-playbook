@@ -100,12 +100,15 @@ h1{font-family:var(--cond);font-weight:700;font-size:32px;line-height:1.05;margi
 .tree[data-p="2"] .node.root{border-color:var(--p2);background:var(--p2s)}
 .tree[data-p="3"] .node.root{border-color:var(--p3);background:var(--p3s)}
 .tree[data-p="4"] .node.root{border-color:var(--p4);background:var(--p4s)}
+.node.group{padding:0;min-width:170px;max-width:200px;background:var(--accent-soft);border-color:var(--accent)}
+.node.group > button,.node.theme > button{all:unset;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:9px 12px;cursor:pointer;box-sizing:border-box;font-family:var(--cond);font-weight:600}
+.node.group > button{font-size:16px;font-weight:700}
 .node.theme{padding:0;min-width:190px;max-width:220px}
-.node.theme > button{all:unset;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:9px 12px;cursor:pointer;box-sizing:border-box;font-family:var(--cond);font-weight:600;font-size:15px}
-.node.theme > button .c{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400;white-space:nowrap}
-.node.theme > button .c i{font-style:normal;color:var(--done-ink)}
-.node.theme > button::after{content:"›";font-size:18px;color:var(--ink-3);margin-left:2px;transition:transform .15s}
-.branch.open > .node.theme > button::after{transform:rotate(90deg)}
+.node.theme > button{font-size:15px}
+.node.group > button .c,.node.theme > button .c{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400;white-space:nowrap}
+.node.group > button .c i,.node.theme > button .c i{font-style:normal;color:var(--done-ink)}
+.node.group > button::after,.node.theme > button::after{content:"›";font-size:18px;color:var(--ink-3);margin-left:2px;transition:transform .15s}
+.branch.open > .node.group > button::after,.branch.open > .node.theme > button::after{transform:rotate(90deg)}
 .node.leaf{padding:0;min-width:220px;max-width:340px}
 .node.leaf > button{all:unset;display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px;cursor:pointer;box-sizing:border-box;font-size:13.5px;font-weight:500}
 .node.leaf > button .chk{width:16px;height:16px;border:1.5px solid var(--line);border-radius:4px;flex:none;display:grid;place-items:center;font-size:11px;color:transparent}
@@ -156,11 +159,12 @@ h1{font-family:var(--cond);font-weight:700;font-size:32px;line-height:1.05;margi
 .toast[hidden]{display:none}
 button:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px;max-width:80ch}
-@media (prefers-reduced-motion:reduce){.savebar,.node.theme > button::after{transition:none}}
+@media (prefers-reduced-motion:reduce){.savebar,.node.group > button::after,.node.theme > button::after{transition:none}}
 @media (max-width:760px){
   .spine{grid-template-columns:repeat(2,1fr)}
   .spine::before{display:none}
   .node.root{min-width:160px}
+  .node.group{min-width:140px}
   .node.theme{min-width:150px}
   .node.leaf{min-width:180px;max-width:260px}
   .kids{margin-left:20px}
@@ -263,6 +267,11 @@ const THEMES=[
  {id:"capital",name:"Capital, board & exits"},
  {id:"self",name:"The CEO herself"},
  {id:"crisis",name:"Crisis & persistence"}
+];
+const GROUPS=[
+ {id:"attitude",name:"Attitude",themes:["self","crisis","culture","customer"]},
+ {id:"strategy",name:"Strategy",themes:["mission","strategy","product","capital"]},
+ {id:"execution",name:"Execution",themes:["distribution","team","decisions","cadence"]}
 ];
 const HIL={
  pincus:{t:"Proven, Better, New — from a restaurant back office",u:"https://x.com/hiltinguo/article/2093821104536093133"},
@@ -411,10 +420,11 @@ const ZH_PHASES=[
  {name:"规模化",size:"150 +",desc:"灵感多于汗水。经营它，而不是亲自做。",trig:"当你交出钥匙时结束。"}
 ];
 const ZH_THEMES={mission:"使命与愿景",customer:"客户至上",product:"产品与楔子",distribution:"分发与销售",strategy:"战略与品类",team:"团队与招聘",culture:"文化",decisions:"决策",cadence:"聚焦与节奏",capital:"资本、董事会与退出",self:"CEO 自身",crisis:"危机与坚持"};
+const ZH_GROUPS={attitude:"态度",strategy:"战略",execution:"执行"};
 const ZH_VOICES={bezos:"杰夫·贝索斯",halligan:"布莱恩·哈利根",dharmesh:"达梅什·沙阿",jensen:"黄仁勋",jobs:"史蒂夫·乔布斯",benioff:"马克·贝尼奥夫",hastings:"里德·哈斯廷斯 & 马克·伦道夫",musk:"埃隆·马斯克",lutke:"托比·吕特克",chesky:"布莱恩·切斯基",yuan:"袁征",atlassian:"坎农-布鲁克斯 & 法夸尔",narang:"阿曼·纳朗",pincus:"马克·平卡斯",ghodsi:"阿里·戈德西",jack:"马云",wangxing:"王兴",zhangyong:"张勇",huang:"黄峥",leijun:"雷军",walton:"山姆·沃尔顿",sinegal:"吉姆·辛内加尔",xu:"徐迅 Tony Xu"};
 const ZH_UI={
  eyebrow:"主记忆 · 创始人智慧合集",h1:"创始人 CEO 手册",
- lede:"从 <b id=\"nVoices\"></b> 位从零创办过市值 100 亿美元以上上市公司的创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
+ lede:"从 <b id=\"nVoices\"></b> 位从零创办过市值 100 亿美元以上上市公司的创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 态度 / 战略 / 执行 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
  progress:"已成为我们的运营方式",saved:"上次保存",savedLocal:"保存在此浏览器",never:"从未",
  weAreAt:"我们处于",expand:"全部展开",collapse:"收起",here:"我们在这里",kickIn:"条从此阶段开始",lessons:"条经验",
  allVoices:"全部声音",voices:"个声音",
@@ -539,7 +549,7 @@ const zh=()=>LANG==="zh";
 const T=k=>zh()?ZH_UI[k]:EN_UI[k];
 const EN_UI={
  eyebrow:"Master memory · consolidated founder wisdom",h1:"Founder-CEO Playbook",
- lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs who each built a public company worth more than $10B from scratch — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
+ lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs who each built a public company worth more than $10B from scratch — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → attitude / strategy / execution → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
  progress:"part of how we run",saved:"last saved",savedLocal:"saved in this browser",never:"never",
  weAreAt:"We are at",expand:"Expand all",collapse:"Collapse",here:"We are here",kickIn:"kick in",lessons:"lessons",
  allVoices:"All voices",voices:"voices",
@@ -553,6 +563,7 @@ const EN_UI={
 const OFFICE_HOURS=[{id:"halligan",n:"Robot Brian Halligan",u:"https://www.delphi.ai/bhalligan",host:"delphi.ai/bhalligan"}];
 const PH=i=>zh()?Object.assign({},PHASES[i],ZH_PHASES[i]):PHASES[i];
 const THN=t=>zh()?ZH_THEMES[t.id]:t.name;
+const GN=g=>zh()?ZH_GROUPS[g.id]:g.name;
 const VN=v=>zh()?(ZH_VOICES[v.id]||v.n):v.n;
 const LT=(x)=>{const i=L.indexOf(x);return zh()&&ZH[i]?ZH[i].t:x.t};
 const LP=(x)=>{const i=L.indexOf(x);return zh()&&ZH[i]?ZH[i].p:x.p};
@@ -590,7 +601,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 let viewPhase=state.phase;
-const openThemes=new Set(); const openLeaves=new Set();
+const openThemes=new Set(); const openLeaves=new Set(); const groupInited=new Set();
 
 // ---------- render ----------
 function render(){ applyLang(); renderVoices(); renderSpine(); renderTree(); renderProgress(); }
@@ -634,15 +645,26 @@ function renderTree(){
   const P=PHASES.find(p=>p.p===viewPhase);
   const items=L.filter(x=>x.ph===P.p&&visible(x));
   let kids="";
-  for(const TH of THEMES){
-    const ti=items.filter(x=>x.th===TH.id); if(!ti.length)continue;
-    const d=ti.filter(x=>get(x.id).done).length, key=P.p+":"+TH.id;
-    kids+=`<div class="branch ${openThemes.has(key)?"open":""}" data-theme="${key}"><div class="node theme"><button data-act="theme"><span>${esc(THN(TH))}</span><span class="c"><i>${d}✓</i> / ${ti.length}</span></button></div>
-      <div class="kids">${ti.map(leafHTML).join("")}</div></div>`;
+  for(const G of GROUPS){
+    const gItems=items.filter(x=>G.themes.includes(x.th));
+    if(!gItems.length) continue;
+    const gkey=P.p+":g:"+G.id;
+    if(!groupInited.has(gkey)){ openThemes.add(gkey); groupInited.add(gkey); }
+    const gd=gItems.filter(x=>get(x.id).done).length;
+    let themes="";
+    for(const tid of G.themes){
+      const TH=THEMES.find(t=>t.id===tid);
+      const ti=gItems.filter(x=>x.th===tid); if(!ti.length) continue;
+      const d=ti.filter(x=>get(x.id).done).length, key=P.p+":"+TH.id;
+      themes+=`<div class="branch ${openThemes.has(key)?"open":""}" data-theme="${key}"><div class="node theme"><button data-act="theme"><span>${esc(THN(TH))}</span><span class="c"><i>${d}✓</i> / ${ti.length}</span></button></div>
+        <div class="kids">${ti.map(leafHTML).join("")}</div></div>`;
+    }
+    kids+=`<div class="branch ${openThemes.has(gkey)?"open":""}" data-theme="${gkey}"><div class="node group"><button data-act="theme"><span>${esc(GN(G))}</span><span class="c"><i>${gd}✓</i> / ${gItems.length}</span></button></div>
+      <div class="kids">${themes}</div></div>`;
   }
   const tree=$("#tree"); tree.dataset.p=P.p;
   const Z=PH(PHASES.indexOf(P));
-  tree.innerHTML=`<div class="branch open"><div class="node root"><div class="t">P${P.p} · ${esc(Z.name)}</div><div class="s">${Z.size} · ${items.length} ${T("lessons")}</div><div class="d">${esc(Z.desc)}</div><div class="trig">${esc(Z.trig)}</div></div><div class="kids">${kids}</div></div>`;
+  tree.innerHTML=`<div class="branch open"><div class="node root"><div class="t">P${P.p} · ${esc(Z.name)}</div><div class="s">${Z.size} · ${items.length} ${T("lessons")}</div><div class="d">${esc(Z.desc)}</div><div class="trig">${esc(Z.trig)}</div></div><div class="kids">${kids||`<div class="empty">—</div>`}</div></div>`;
   tree.querySelectorAll("textarea").forEach(autosize);
 }
 function renderProgress(){
@@ -654,7 +676,7 @@ function renderProgress(){
 // ---------- interaction ----------
 $("#spine").addEventListener("click",e=>{const b=e.target.closest(".pnode");if(!b)return;viewPhase=+b.dataset.p;render()});
 $("#phaseSel").addEventListener("change",e=>{state.phase=+e.target.value;viewPhase=state.phase;markDirty("phase");render()});
-$("#expandAll").addEventListener("click",()=>{L.filter(x=>x.ph===viewPhase).forEach(x=>openThemes.add(viewPhase+":"+x.th));renderTree()});
+$("#expandAll").addEventListener("click",()=>{GROUPS.forEach(g=>openThemes.add(viewPhase+":g:"+g.id));L.filter(x=>x.ph===viewPhase).forEach(x=>openThemes.add(viewPhase+":"+x.th));renderTree()});
 $("#collapseAll").addEventListener("click",()=>{[...openThemes].filter(k=>k.startsWith(viewPhase+":")).forEach(k=>openThemes.delete(k));openLeaves.clear();renderTree()});
 $("#tree").addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;
@@ -709,7 +731,12 @@ async function save(){
 let toastT; function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true},4000)}
 
 // open the first theme so the tree isn't bare
-(function(){const first=L.find(x=>x.ph===viewPhase);if(first)openThemes.add(viewPhase+":"+first.th)})();
+(function(){
+  GROUPS.forEach(g=>openThemes.add(viewPhase+":g:"+g.id));
+  const firstG=GROUPS.find(g=>L.some(x=>x.ph===viewPhase&&g.themes.includes(x.th)));
+  const firstTh=firstG&&firstG.themes.find(tid=>L.some(x=>x.ph===viewPhase&&x.th===tid));
+  if(firstTh) openThemes.add(viewPhase+":"+firstTh);
+})();
 render();
 (async()=>{
   try{ if(window.claude&&typeof window.claude.use==="function") artifactNS=await window.claude.use("artifact"); }catch(e){artifactNS=null}
