@@ -223,7 +223,7 @@ const PHASES=[
  {p:3,name:"Pre-scale",size:"50 – 150",desc:"Build the machine before Dunbar's number breaks it.",trig:"Ends when the founder no longer knows everyone."},
  {p:4,name:"Scaleup",size:"150 +",desc:"Inspiration over perspiration. Run it, don't do it.",trig:"Ends when you hand over the keys."}
 ];
-// Voices: founder-CEOs who built a public company worth > $10B from scratch (exceptions flagged in `note`)
+// Voices: founder-CEOs in this playbook (exceptions flagged in `note`)
 const VOICES=[
  {id:"bezos",n:"Jeff Bezos",co:"Amazon",cap:"$2T+",c:"#e08a1e",src:"Shareholder letters 1997–2020"},
  {id:"halligan",n:"Brian Halligan",co:"HubSpot",cap:"~$30B",c:"#ff7a59",src:"Halliganisms; INBOUND keynotes 2012–21"},
@@ -414,7 +414,7 @@ const ZH_THEMES={mission:"使命与愿景",customer:"客户至上",product:"产�
 const ZH_VOICES={bezos:"杰夫·贝索斯",halligan:"布莱恩·哈利根",dharmesh:"达梅什·沙阿",jensen:"黄仁勋",jobs:"史蒂夫·乔布斯",benioff:"马克·贝尼奥夫",hastings:"里德·哈斯廷斯 & 马克·伦道夫",musk:"埃隆·马斯克",lutke:"托比·吕特克",chesky:"布莱恩·切斯基",yuan:"袁征",atlassian:"坎农-布鲁克斯 & 法夸尔",narang:"阿曼·纳朗",pincus:"马克·平卡斯",ghodsi:"阿里·戈德西",jack:"马云",wangxing:"王兴",zhangyong:"张勇",huang:"黄峥",leijun:"雷军",walton:"山姆·沃尔顿",sinegal:"吉姆·辛内加尔",xu:"徐迅 Tony Xu"};
 const ZH_UI={
  eyebrow:"主记忆 · 创始人智慧合集",h1:"创始人 CEO 手册",
- lede:"从 <b id=\"nVoices\"></b> 位从零创办过市值 100 亿美元以上上市公司的创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
+ lede:"从 <b id=\"nVoices\"></b> 位创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
  progress:"已成为我们的运营方式",saved:"上次保存",savedLocal:"保存在此浏览器",never:"从未",
  weAreAt:"我们处于",expand:"全部展开",collapse:"收起",here:"我们在这里",kickIn:"条从此阶段开始",lessons:"条经验",
  allVoices:"全部声音",voices:"个声音",
@@ -539,7 +539,7 @@ const zh=()=>LANG==="zh";
 const T=k=>zh()?ZH_UI[k]:EN_UI[k];
 const EN_UI={
  eyebrow:"Master memory · consolidated founder wisdom",h1:"Founder-CEO Playbook",
- lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs who each built a public company worth more than $10B from scratch — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
+ lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
  progress:"part of how we run",saved:"last saved",savedLocal:"saved in this browser",never:"never",
  weAreAt:"We are at",expand:"Expand all",collapse:"Collapse",here:"We are here",kickIn:"kick in",lessons:"lessons",
  allVoices:"All voices",voices:"voices",
