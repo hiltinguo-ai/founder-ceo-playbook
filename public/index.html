@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder-CEO Playbook</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5f6f4; --panel:#ffffff; --ink:#1a2130; --ink-2:#4a5364; --ink-3:#7c8595;
+  --line:#d3d8d6; --line-2:#e6e9e8; --accent:#0f6b6b; --accent-soft:#e0efee; --accent-ink:#0a4f4f;
+  --done:#d9f0dc; --done-ink:#1d5a2a; --here:#c9841a;
+  --p1:#b4541c; --p2:#a8761a; --p3:#2f6f5e; --p4:#1f4f8f;
+  --p1s:#f7e6dc; --p2s:#f6ecd6; --p3s:#dcece7; --p4s:#dde6f3;
+  --shadow:0 1px 2px rgba(20,30,40,.06);
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151a21; --panel:#1c222b; --ink:#e8ebee; --ink-2:#b4bcc7; --ink-3:#7f8a98;
+    --line:#35404c; --line-2:#262d37; --accent:#4fb3ae; --accent-soft:#193434; --accent-ink:#8fd6d1;
+    --done:#1b3d24; --done-ink:#9be0a8; --here:#e0a040;
+    --p1:#c9652a; --p2:#c9952e; --p3:#3f9a82; --p4:#3b74bd;
+    --p1s:#3a2418; --p2s:#3a2e14; --p3s:#173029; --p4s:#182a40;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151a21; --panel:#1c222b; --ink:#e8ebee; --ink-2:#b4bcc7; --ink-3:#7f8a98;
+  --line:#35404c; --line-2:#262d37; --accent:#4fb3ae; --accent-soft:#193434; --accent-ink:#8fd6d1;
+  --done:#1b3d24; --done-ink:#9be0a8; --here:#e0a040;
+  --p1:#c9652a; --p2:#c9952e; --p3:#3f9a82; --p4:#3b74bd;
+  --p1s:#3a2418; --p2s:#3a2e14; --p3s:#173029; --p4s:#182a40;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 28px 110px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding-bottom:14px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--cond);font-weight:700;font-size:32px;line-height:1.05;margin:4px 0 6px;letter-spacing:-.01em}
+.lede{color:var(--ink-2);max-width:62ch;margin:0}
+.progress{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-align:right}
+.progress b{font-family:var(--cond);font-size:26px;font-weight:600;color:var(--ink);display:block;line-height:1}
+
+/* ---- spine: the progressive path ---- */
+.spine{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:8px 0 6px;position:relative}
+.spine::before{content:"";position:absolute;left:8%;right:8%;top:34px;border-top:2px solid var(--line);z-index:0}
+.pnode{position:relative;z-index:1;background:transparent;border:0;font:inherit;cursor:pointer;text-align:center;padding:8px 6px 6px;color:var(--ink)}
+.pnode .dot{width:52px;height:52px;border-radius:50%;margin:0 auto;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:18px;color:#fff;border:4px solid var(--bg);box-shadow:0 0 0 2px var(--line)}
+.pnode[data-p="1"] .dot{background:var(--p1)} .pnode[data-p="2"] .dot{background:var(--p2)} .pnode[data-p="3"] .dot{background:var(--p3)} .pnode[data-p="4"] .dot{background:var(--p4)}
+.pnode .t{font-family:var(--cond);font-weight:700;font-size:16px;margin-top:6px}
+.pnode .s{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.pnode .k{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:2px}
+.pnode[aria-pressed="true"] .dot{box-shadow:0 0 0 3px var(--ink)}
+.pnode[aria-pressed="true"] .t{text-decoration:underline;text-underline-offset:4px}
+.pnode .here{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--here);color:#1a1200;padding:1px 6px;border-radius:2px;margin-top:4px}
+.pnode:not([data-here]) .here{visibility:hidden}
+.spinectl{display:flex;justify-content:center;gap:14px;align-items:center;font-size:12.5px;color:var(--ink-2);margin-bottom:10px}
+.modenote{text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);margin:-4px 0 10px}
+.modenote[hidden]{display:none}
+.spinectl select,.spinectl button{font:inherit;font-size:12.5px;padding:4px 8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:3px;cursor:pointer}
+
+.langbtn{position:fixed;top:14px;right:18px;z-index:30;font:inherit;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.02em;padding:6px 12px;border:2px solid var(--ink);background:var(--panel);color:var(--ink);border-radius:999px;cursor:pointer;box-shadow:var(--shadow)}
+.langbtn:hover{background:var(--ink);color:var(--bg)}
+/* ---- voices ---- */
+.voices{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:2px 0 8px}
+.vchip{font:inherit;font-size:11.5px;display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 4px;border:1px solid var(--line);background:var(--panel);color:var(--ink-2);border-radius:999px;cursor:pointer}
+.vchip .av{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:9.5px;color:#fff}
+.vchip .co{color:var(--ink-3);font-family:var(--mono);font-size:10px}
+.vchip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.vchip[aria-pressed="true"] .co{color:var(--bg);opacity:.7}
+.vchip.all{padding:3px 10px}
+.vnote{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin:-2px 0 6px;min-height:14px}
+.avs{display:inline-flex;margin-left:auto;flex:none}
+.avs .av{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:8.5px;color:#fff;border:1.5px solid var(--panel);margin-left:-5px}
+.avs .av:first-child{margin-left:0}
+.node.leaf.done .avs .av{border-color:var(--done)}
+.node.leaf .detail .vl{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 4px}
+.node.leaf .detail .vl span{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:999px;color:#fff}
+.node.leaf .detail .src{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);display:block;margin-bottom:6px}
+.node.leaf .detail .hil{border-left:3px solid var(--here);padding:4px 8px;margin:6px 0 8px;font-size:12.5px;color:var(--ink-2);background:var(--bg)}
+.node.leaf .detail .hil b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.node.leaf .detail .hil a{font-size:11px}
+.consensus{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--done-ink);margin-left:4px}
+.node.leaf{max-width:380px}
+/* ---- the tree ---- */
+.tree{margin-top:8px;overflow-x:auto;padding:10px 0 20px}
+.branch{display:flex;align-items:center}
+.node{border:1px solid var(--line);background:var(--panel);border-radius:6px;box-shadow:var(--shadow);position:relative;flex:none}
+.node.root{padding:14px 18px;border-width:2px;min-width:200px;max-width:240px}
+.node.root .t{font-family:var(--cond);font-weight:700;font-size:20px;line-height:1.1}
+.node.root .s{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:2px}
+.node.root .d{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.node.root .trig{font-size:11.5px;color:var(--ink-3);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.tree[data-p="1"] .node.root{border-color:var(--p1);background:var(--p1s)}
+.tree[data-p="2"] .node.root{border-color:var(--p2);background:var(--p2s)}
+.tree[data-p="3"] .node.root{border-color:var(--p3);background:var(--p3s)}
+.tree[data-p="4"] .node.root{border-color:var(--p4);background:var(--p4s)}
+.node.theme{padding:0;min-width:190px;max-width:220px}
+.node.theme > button{all:unset;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:9px 12px;cursor:pointer;box-sizing:border-box;font-family:var(--cond);font-weight:600;font-size:15px}
+.node.theme > button .c{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400;white-space:nowrap}
+.node.theme > button .c i{font-style:normal;color:var(--done-ink)}
+.node.theme > button::after{content:"›";font-size:18px;color:var(--ink-3);margin-left:2px;transition:transform .15s}
+.branch.open > .node.theme > button::after{transform:rotate(90deg)}
+.node.leaf{padding:0;min-width:220px;max-width:340px}
+.node.leaf > button{all:unset;display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px;cursor:pointer;box-sizing:border-box;font-size:13.5px;font-weight:500}
+.node.leaf > button .chk{width:16px;height:16px;border:1.5px solid var(--line);border-radius:4px;flex:none;display:grid;place-items:center;font-size:11px;color:transparent}
+.node.leaf.done{background:var(--done);border-color:var(--done-ink)}
+.node.leaf.done > button .chk{background:var(--done-ink);border-color:var(--done-ink);color:#fff}
+.node.leaf.noted > button::after{content:"✎";font-size:11px;color:var(--ink-3);margin-left:auto}
+.node.leaf .detail{display:none;padding:0 10px 10px;border-top:1px dashed var(--line);margin-top:0}
+.node.leaf.open .detail{display:block}
+.node.leaf .detail p{margin:8px 0 6px;font-size:13px;color:var(--ink-2)}
+.node.leaf .detail .ht{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);display:block;margin-bottom:8px}
+.node.leaf .detail .ctl{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.node.leaf .detail .ctl button{font:inherit;font-size:12px;padding:4px 9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:3px;cursor:pointer}
+.node.leaf.done .detail .ctl button.mark{background:var(--done-ink);border-color:var(--done-ink);color:#fff}
+.node.leaf .detail textarea{width:100%;font:inherit;font-size:12.5px;padding:5px 7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:3px;resize:none;min-height:30px;overflow:hidden}
+.node.leaf .detail textarea::placeholder{color:var(--ink-3)}
+.node.leaf .detail textarea:disabled{display:none}
+.kids{display:none;flex-direction:column;position:relative;margin-left:36px}
+.branch.open > .kids{display:flex}
+.kids > .branch{position:relative;padding:4px 0}
+.kids > .branch::before{content:"";position:absolute;left:-36px;top:50%;width:36px;border-top:2px solid var(--line)}
+.kids > .branch::after{content:"";position:absolute;left:-36px;top:0;bottom:0;border-left:2px solid var(--line)}
+.kids > .branch:first-child::after{top:50%}
+.kids > .branch:last-child::after{bottom:50%}
+.kids > .branch:only-child::after{display:none}
+.tree > .branch > .kids{display:flex}
+.tree .empty{color:var(--ink-3);font-size:13px;padding:20px}
+
+/* ---- Robot Brian office hours ---- */
+.rb{position:fixed;right:18px;bottom:18px;z-index:25;display:flex;flex-direction:column;align-items:flex-end;gap:8px;transition:bottom .2s}
+.rb.lift{bottom:66px}
+.rb .card{display:none;width:280px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
+.rb.open .card{display:block}
+.rb .card .t{font-family:var(--cond);font-weight:700;font-size:16px;color:var(--ink);margin-bottom:4px}
+.rb .card a.go{display:block;margin-top:8px;font-weight:600;color:#fff;background:var(--accent);padding:6px 11px;border-radius:4px;text-decoration:none}
+.rb .card .fine{display:block;margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.rb .fab{font:inherit;display:flex;align-items:center;gap:8px;border:0;cursor:pointer;background:var(--ink);color:var(--bg);padding:9px 14px 9px 10px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.22);font-weight:600;font-size:13px}
+.rb .fab .av{width:26px;height:26px;border-radius:50%;background:var(--here);color:#1a1200;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:12px}
+.rb .fab .sub{font-family:var(--mono);font-weight:400;font-size:10px;opacity:.75;margin-left:2px}
+@media (prefers-reduced-motion:reduce){.rb{transition:none}}
+
+.savebar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:var(--bg);display:flex;gap:14px;align-items:center;padding:10px 24px;transform:translateY(110%);transition:transform .2s}
+.savebar.on{transform:none}
+.savebar .msg{font-family:var(--mono);font-size:12px;flex:1}
+.savebar button{font:inherit;font-weight:600;font-size:13px;padding:7px 14px;border:0;border-radius:3px;cursor:pointer;background:var(--accent);color:#fff}
+.savebar button.ghost{background:transparent;color:var(--bg);border:1px solid rgba(255,255,255,.35)}
+.savebar button:disabled{opacity:.6;cursor:default}
+.toast{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:0 6px 24px rgba(0,0,0,.18);padding:8px 14px;font-size:12.5px;border-radius:3px;z-index:30}
+.toast[hidden]{display:none}
+button:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){.savebar,.node.theme > button::after{transition:none}}
+@media (max-width:760px){
+  .spine{grid-template-columns:repeat(2,1fr)}
+  .spine::before{display:none}
+  .node.root{min-width:160px}
+  .node.theme{min-width:150px}
+  .node.leaf{min-width:180px;max-width:260px}
+  .kids{margin-left:20px}
+  .kids > .branch::before{left:-20px;width:20px}
+  .kids > .branch::after{left:-20px}
+}
+</style>
+</head>
+<body>
+
+<script type="application/json" id="state">{"v":3,"phase":1,"lessons":{},"updatedAt":null}</script>
+
+<button class="langbtn" id="langBtn" title="切换语言 / Switch language">中文</button>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow" id="eyebrow">Master memory · consolidated founder wisdom</div>
+      <h1 id="h1">Founder-CEO Playbook</h1>
+      <p class="lede" id="lede"></p>
+    </div>
+    <div class="progress" id="progress"></div>
+  </header>
+
+  <div class="spine" id="spine"></div>
+  <div class="spinectl">
+    <label><span id="lblWeAreAt">We are at</span> <select id="phaseSel"></select></label>
+    <button id="expandAll">Expand all</button>
+    <button id="collapseAll">Collapse</button>
+  </div>
+  <div class="modenote" id="modeNote" hidden></div>
+  <div class="voices" id="voices"></div>
+  <div class="vnote" id="vnote"></div>
+
+  <div class="tree" id="tree"></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<div class="rb" id="rb">
+  <div class="card" role="dialog" aria-label="Robot office hours">
+    <div class="t" id="ohTitle">Robot office hours</div>
+    <span id="ohIntro"></span>
+    <div id="ohList"></div>
+    <span class="fine" id="ohOthers"></span>
+  </div>
+  <button class="fab" id="rbBtn" aria-expanded="false"><span class="av">RB</span><span id="rbLabel">Robot office hours</span></button>
+</div>
+<div class="savebar" id="savebar">
+  <span class="msg" id="savemsg"></span>
+  <button class="ghost" id="discard">Discard</button>
+  <button id="save">Save to page</button>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+const PHASES=[
+ {p:1,name:"Founding",size:"< 10 people",desc:"Survive and find the wedge. Founders do everything.",trig:"Ends when you hire your first managers."},
+ {p:2,name:"First team",size:"10 – 50",desc:"Turn the founders' habits into a team's habits.",trig:"Ends when a second management layer starts forming."},
+ {p:3,name:"Pre-scale",size:"50 – 150",desc:"Build the machine before Dunbar's number breaks it.",trig:"Ends when the founder no longer knows everyone."},
+ {p:4,name:"Scaleup",size:"150 +",desc:"Inspiration over perspiration. Run it, don't do it.",trig:"Ends when you hand over the keys."}
+];
+// Voices: founder-CEOs who built a public company worth > $10B from scratch (exceptions flagged in `note`)
+const VOICES=[
+ {id:"bezos",n:"Jeff Bezos",co:"Amazon",cap:"$2T+",c:"#e08a1e",src:"Shareholder letters 1997–2020"},
+ {id:"halligan",n:"Brian Halligan",co:"HubSpot",cap:"~$30B",c:"#ff7a59",src:"Halliganisms; INBOUND keynotes 2012–21"},
+ {id:"dharmesh",n:"Dharmesh Shah",co:"HubSpot",cap:"~$30B",c:"#c94f2f",src:"INBOUND keynotes; Culture Code"},
+ {id:"jensen",n:"Jensen Huang",co:"Nvidia",cap:"$3T+",c:"#76b900",src:"Stanford GSB, Acquired, commencement talks"},
+ {id:"jobs",n:"Steve Jobs",co:"Apple",cap:"$3T+",c:"#6b6b6b",src:"WWDC '97, Stanford '05, interviews"},
+ {id:"benioff",n:"Marc Benioff",co:"Salesforce",cap:"$250B+",c:"#00a1e0",src:"Behind the Cloud; Trailblazer"},
+ {id:"hastings",n:"Reed Hastings & Marc Randolph",co:"Netflix",cap:"$400B+",c:"#d81f26",src:"No Rules Rules; That Will Never Work"},
+ {id:"musk",n:"Elon Musk",co:"Tesla · SpaceX",cap:"$800B+",c:"#3d5a80",src:"Talks; the 5-step algorithm"},
+ {id:"lutke",n:"Tobi Lütke",co:"Shopify",cap:"$100B+",c:"#5e8e3e",src:"Podcasts; internal memos"},
+ {id:"chesky",n:"Brian Chesky",co:"Airbnb",cap:"$80B+",c:"#ff5a5f",src:"Founder mode; Lenny's Podcast"},
+ {id:"yuan",n:"Eric Yuan",co:"Zoom",cap:"$100B+ peak",c:"#2d8cff",src:"Interviews; company values"},
+ {id:"atlassian",n:"Cannon-Brookes & Farquhar",co:"Atlassian",cap:"$50B+",c:"#0052cc",src:"Company values; investor talks"},
+ {id:"narang",n:"Aman Narang",co:"Toast",cap:"~$14B",c:"#ff4c00",src:"20VC; Toast investor days"},
+ {id:"pincus",n:"Mark Pincus",co:"Zynga",cap:"$12.7B exit",c:"#8e44ad",src:"Life at the Speed of Play; Lenny's Podcast",note:"Peak market cap ≈ $10B; sold to Take-Two for $12.7B"},
+ {id:"ghodsi",n:"Ali Ghodsi",co:"Databricks",cap:"$100B+ private",c:"#ff3621",src:"Agentic AI Summit 2026 fireside",note:"Exception: still private, valued above $100B"},
+ {id:"jack",n:"Jack Ma 马云",co:"Alibaba",cap:"$200B+",c:"#ff6a00",src:"Speeches; Alibaba values"},
+ {id:"wangxing",n:"Wang Xing 王兴",co:"Meituan",cap:"$100B+",c:"#ffc300",src:"Fanfou posts; internal letters"},
+ {id:"zhangyong",n:"Zhang Yong 张勇",co:"Haidilao 海底捞",cap:"$60B peak",c:"#c0392b",src:"Haidilao's management practice"},
+ {id:"huang",n:"Colin Huang 黄峥",co:"Pinduoduo",cap:"$150B+",c:"#e02e24",src:"Shareholder letters; essays"},
+ {id:"leijun",n:"Lei Jun 雷军",co:"Xiaomi",cap:"$100B+",c:"#ff6900",src:"Speeches; Xiaomi methodology"},
+ {id:"walton",n:"Sam Walton",co:"Walmart",cap:"$700B+",c:"#0071ce",src:"Made in America — the 10 rules"},
+ {id:"sinegal",n:"Jim Sinegal",co:"Costco",cap:"$400B+",c:"#e31837",src:"Interviews; Costco practice"},
+ {id:"xu",n:"Tony Xu",co:"DoorDash",cap:"$80B+",c:"#ff3008",src:"Interviews; S-1 letter"}
+];
+// th = theme id; ph = phase where it kicks in; v = voices; hil = Hil's own take (from her X articles) with link key
+const THEMES=[
+ {id:"mission",name:"Mission & vision"},
+ {id:"customer",name:"Customer obsession"},
+ {id:"product",name:"Product & the wedge"},
+ {id:"distribution",name:"Distribution & selling"},
+ {id:"strategy",name:"Strategy & category"},
+ {id:"team",name:"Team & hiring"},
+ {id:"culture",name:"Culture"},
+ {id:"decisions",name:"Deciding"},
+ {id:"cadence",name:"Focus & cadence"},
+ {id:"capital",name:"Capital, board & exits"},
+ {id:"self",name:"The CEO herself"},
+ {id:"crisis",name:"Crisis & persistence"}
+];
+const HIL={
+ pincus:{t:"Proven, Better, New — from a restaurant back office",u:"https://x.com/hiltinguo/article/2093821104536093133"},
+ ghodsi:{t:"What Ali Ghodsi taught me about turning deep tech into inevitability",u:"https://x.com/hiltinguo/article/2091611851180441720"},
+ moat:{t:"Your Moat and Your Marketing Are the Same Asset",u:"https://x.com/hiltinguo/article/2088444041796972912"},
+ inbound:{t:"The Last Days of INBOUND",u:"https://x.com/hiltinguo/article/2086544983017037885"},
+ finance:{t:"Takeaways — AI in Finance and Legal",u:"https://x.com/hiltinguo/article/2084156912288018684"}
+};
+const L=[
+// ---------- Mission & vision ----------
+{th:"mission",ph:1,t:"It is still Day 1",p:"Day 2 is stasis, followed by irrelevance, followed by decline. Guard against it with customer obsession, skepticism of proxies, eager adoption of external trends and high-velocity decisions.",v:["bezos"],src:"Bezos, 2016 letter"},
+{th:"mission",ph:1,t:"Stubborn on vision, flexible on details",p:"Hold the destination for years; change the route weekly. Most founders get this backwards and end up flexible on vision and stubborn on details.",v:["bezos","jack"],src:"Bezos; Jack Ma's '102-year company'"},
+{th:"mission",ph:1,t:"Be less ambitious to start",p:"The bigger the vision, the smaller and humbler the starting point must be. Pincus, twice successful at 41, made a poker app on Facebook — people thought it beneath him. It became Zynga.",v:["pincus","chesky"],src:"Pincus on Lenny's Podcast; Chesky's 'handmade' Airbnb",hil:"pincus",hq:"AiriHub is our poker app: one stamp card, on one block of Boston's Chinatown, before anywhere else."},
+{th:"mission",ph:1,t:"Zero-billion-dollar markets",p:"Chase markets that don't exist yet but will be inevitable. In real time inevitability looks exactly like uncertainty — CUDA, cloud, agents. Bet on where technology and behavior are heading, before consensus.",v:["jensen","ghodsi","benioff"],src:"Jensen Huang; Ghodsi on Databricks' cloud bet; Benioff's 'end of software'",hil:"ghodsi",hq:"Restaurant owners are living their 'cloud moment' with agentic AI right now, and it looks like uncertainty to them too."},
+{th:"mission",ph:1,t:"The mission is the boss",p:"Not the CEO, not the org chart. When the mission is explicit, people can be pointed at it and trusted to work it out. Halligan's version: MSPOT starts with M for a reason.",v:["jensen","halligan"],src:"Jensen Huang; Halligan's MSPOT"},
+{th:"mission",ph:1,t:"顺势而为 — ride the wave",p:"Lei Jun: a pig in a typhoon can fly. Individual effort is weak against the tide; pick the trend first, then execute relentlessly. Same idea as 'watch the market transition, not the competitor.'",v:["leijun","wangxing"],src:"Lei Jun; Wang Xing's '对未来越有信心，对现在越有耐心'"},
+{th:"mission",ph:2,t:"Align the vectors",p:"Every employee is a vector with magnitude and direction. Nine-out-of-ten performers pulling in different directions sum to zero. The CEO's job in scale-up: strong vectors, one direction.",v:["musk","dharmesh","halligan"],src:"Musk, via Halligan (a Sequoia event) and Dharmesh Shah (INBOUND 2017)",hil:"inbound"},
+{th:"mission",ph:4,t:"Build something that outlives you",p:"Ideas that win stop belonging to their names: the funnel became the flywheel, INBOUND became UNBOUND. Build the wheel that keeps spinning after you step back; Halligan's 'grandkids' test.",v:["halligan","dharmesh","bezos","jack"],src:"INBOUND 2021; Halliganisms; Alibaba's 102-year target",hil:"inbound"},
+
+// ---------- Customer obsession ----------
+{th:"customer",ph:1,t:"Customers first, employees second, shareholders third",p:"Order matters. Jack Ma made it explicit; Halligan's priority stack is customer > company > department > self; Amazon puts customer obsession above every other leadership principle.",v:["jack","halligan","bezos"],src:"Jack Ma; Halligan (INBOUND 2017); Amazon Leadership Principles"},
+{th:"customer",ph:1,t:"Work backwards from the customer",p:"Start from the customer experience and work back to the technology, never the reverse. Amazon writes the press release and FAQ before building; Jobs said the same on stage in 1997.",v:["bezos","jobs"],src:"Amazon PR/FAQ; Jobs, WWDC 1997"},
+{th:"customer",ph:1,t:"You're B2H — business to human",p:"Not B2B, not B2C. Study the buyer, not the peer group. HubSpot's founders were told to study marketers; they studied buyers and found the number of vendors a buyer considers tripled in a decade.",v:["halligan","dharmesh"],src:"INBOUND 2016",hil:"inbound",hq:"My buyer is a restaurant owner checking her phone at 11 pm between close-out and tomorrow's prep list. Not a segment. A tired human."},
+{th:"customer",ph:1,t:"Design the 11-star experience",p:"Write down what a 5-star, 7-star, 11-star version of your experience would be. Most of it is absurd; the exercise reveals which part of 'absurd' is actually buildable.",v:["chesky"],src:"Chesky, Airbnb"},
+{th:"customer",ph:1,t:"Service that exceeds expectation is the product",p:"Haidilao sells hot pot, but customers come for the manicure in the queue, the hair ties, the staff empowered to comp a dish on the spot. Front-line authority plus over-delivery beats any menu.",v:["zhangyong"],src:"Zhang Yong, Haidilao",hil:"pincus",hq:"My 'Y' originates from Haidilao's mode of service — empowered by AI."},
+{th:"customer",ph:1,t:"Deliver happiness — the customer decides",p:"Zoom's one value is 'Care'. Yuan left WebEx because he wasn't proud of what customers were getting; he built the company around making the customer happy first and let everything else follow.",v:["yuan","sinegal"],src:"Eric Yuan; Sinegal's 'take care of members'"},
+{th:"customer",ph:2,t:"Get to the coal face",p:"The bigger you get, the further the CEO drifts from the front line. Skip levels, sit in the support queue an hour a month, put a customer in the management meeting. Zhang Yong still walks restaurants; Walton flew to stores.",v:["halligan","zhangyong","walton","xu"],src:"Halliganisms; Haidilao; Walton's 'Rule 8: listen'; DoorDash's WeDash",hil:"inbound"},
+{th:"customer",ph:2,t:"Everyone dashes",p:"Every DoorDash employee — including the CEO — delivers orders regularly. It isn't theatre; it's how product priorities get set. Tony Xu's version of the coal face for a marketplace.",v:["xu"],src:"DoorDash 'WeDash' program"},
+{th:"customer",ph:2,t:"Your best customers are the ones who sell the most",p:"Not the ones who buy the most. Delighted customers are your third and most powerful channel; Person-lifetime-value beats customer-lifetime-value because champions take you to their next company.",v:["dharmesh","halligan"],src:"INBOUND 2013–2018",hil:"inbound"},
+{th:"customer",ph:3,t:"Never block the exit",p:"Being easy to cancel makes people likelier to buy. 75% walk if they can't find pricing; 96% stay if you own a mistake and fix it. Trust is a score every decision moves.",v:["dharmesh","sinegal"],src:"Dharmesh's Customer Code (2018); Costco's no-questions refund"},
+
+// ---------- Product & the wedge ----------
+{th:"product",ph:1,t:"Proven, Better, New",p:"Copy what already works for your exact audience — not 'inspired by', copy it. Add one improvement ten of ten existing users would say yes to. Then one novel idea to get someone to try it at all — and assume that part fails.",v:["pincus"],src:"Pincus, Life at the Speed of Play",hil:"pincus",hq:"You don't get to innovate on the camera until you're the world's leading expert on every camera that exists. Same for the general ledger."},
+{th:"product",ph:1,t:"Kill hope before hope kills you",p:"Belief comes from data you've seen; hope is confidence with nothing under it. 'Minimum viable' is where hope lives. Ship a maximum launch-able product or an explicit throwaway test — and be honest which.",v:["pincus"],src:"Pincus",hil:"pincus",hq:"The ledger wheel has to be right the first time. The stamp card is allowed to fail fast and often."},
+{th:"product",ph:1,t:"If you're asking whether it's an A, it isn't",p:"When something works nobody has to ask. Zynga's real edge wasn't virality but day-365 retention — the only consumer company tracking it. Pick the metric that can't lie to you.",v:["pincus"],src:"Pincus",hil:"pincus",hq:"A restaurant's cycle is a year. Diner day-365 is the input; restaurant day-365 is the output. Both numbers go on the wall."},
+{th:"product",ph:1,t:"Focus is saying no to a thousand good ideas",p:"Jobs cut Apple's product line to four quadrants. Innovation is saying no. Simplicity is the ultimate sophistication — Square won card readers with a plastic dongle and a plain price.",v:["jobs","chesky"],src:"Jobs, WWDC 1997; Chesky's 'fewer, better'"},
+{th:"product",ph:1,t:"Nobody knows anything — test it",p:"Randolph's rule from Netflix's first years: every idea is a guess until a customer acts. Cheap, fast, ugly tests beat elegant arguments. The DVD-in-a-mailbox test cost one stamp.",v:["hastings","pincus"],src:"Marc Randolph, That Will Never Work; Pincus's 'ghetto testing'"},
+{th:"product",ph:1,t:"Do things that don't scale — by hand",p:"Chesky photographed listings himself; Airbnb was 'handmade' for its first thousand hosts. Walton drove to competitors' stores. Learn the craft before you automate it.",v:["chesky","walton","zhangyong"],src:"Chesky; Walton; Haidilao's founder waiting tables"},
+{th:"product",ph:1,t:"The best part is no part",p:"Question every requirement (and name who made it). Delete the part or process; simplify; only then accelerate; only then automate. Automating a thing that shouldn't exist is the classic error.",v:["musk"],src:"Musk's 5-step algorithm"},
+{th:"product",ph:2,t:"Unify the data before you get clever",p:"HubSpot 3 existed to fix 'the hole in HubSpot's heart' — one contacts database under every tool. 1+1=3: the value is the connections, not the apps. Stitch point tools and you get a Franken-system.",v:["dharmesh","halligan"],src:"INBOUND 2012–13",hil:"inbound",hq:"If you're building an AI company, write this down: the model is not the moat. The unified, living dataset is."},
+{th:"product",ph:2,t:"Design the company like a product",p:"Chesky returned to Airbnb's 'founder mode': one roadmap, the CEO as chief editor, no functional silos, product reviews he runs himself. Managers manage the work, not the people.",v:["chesky","jobs","jensen"],src:"Chesky (founder mode); Jobs; Jensen's flat org"},
+{th:"product",ph:3,t:"Know when to launch the second product",p:"Toast waited until POS was the operating system of the restaurant before layering payroll, capital and marketing on top — then each product had a distribution channel already installed.",v:["narang","benioff"],src:"Narang on 20VC; Salesforce's platform sequencing"},
+{th:"product",ph:3,t:"Embed the money",p:"Toast Capital scaled to $1B in loans because the lender already saw the sales. Square, Shopify and Meituan did the same: once you hold the data, payments and credit are the second product, not a new company.",v:["narang","lutke","wangxing"],src:"Toast Capital; Shopify Capital; Meituan's merchant loans"},
+
+// ---------- Distribution & selling ----------
+{th:"distribution",ph:1,t:"Width of brain beats width of wallet",p:"You can't outspend the incumbents; you can out-think, out-teach and out-help them. An article written once pulls customers for eight years; an ad stops the day you stop paying.",v:["halligan","dharmesh"],src:"INBOUND 2014; Halligan's early inbound talk",hil:"moat",hq:"Our moat and our marketing are the same asset: real, anonymized, aggregated restaurant numbers, published monthly."},
+{th:"distribution",ph:1,t:"How you sell is why you win",p:"Buyers weigh how you sell, not just what. Pricing on the website, self-serve trial, no procurement dance. Atlassian closed multi-million deals with no commissioned sales force and no discounts.",v:["atlassian","halligan"],src:"Atlassian; INBOUND 2019",hil:"inbound",hq:"Restaurant owners are the most Yelpified buyers on earth. When I sit across from one, my goal isn't to close her — it's to be useful inside ten minutes."},
+{th:"distribution",ph:1,t:"Open source was distribution, not destination",p:"Spark spread because it was open; Databricks built the layer enterprises pay for. Don't ask 'how do I protect my technology?' Ask 'how do I make it unavoidable?'",v:["ghodsi","atlassian"],src:"Ghodsi; Atlassian's freemium",hil:"ghodsi"},
+{th:"distribution",ph:1,t:"Start where you can walk",p:"Toast sold to Cambridge restaurants its founders could walk to. DoorDash launched in Palo Alto suburbs. Zhang Yong opened one store in Jianyang. A beachhead you can cross in a day is a beachhead you can learn from.",v:["narang","xu","zhangyong"],src:"Toast's origin; DoorDash's suburb-first zag; Haidilao",hil:"inbound",hq:"Our go-to-market starts with a beachhead you can walk across in a day."},
+{th:"distribution",ph:1,t:"Make the customer the hero",p:"Salesforce's early marketing was customer testimonials and a fake protest against 'software'. Benioff sold a movement, then a product. Founder content shouldn't feel like content.",v:["benioff","halligan"],src:"Behind the Cloud, play 'make every customer a hero'",hil:"moat",hq:"Last week I walked into a lobster shop with my phone, ordered a roll, talked to the manager and emailed the owner that evening. That is the story."},
+{th:"distribution",ph:2,t:"Frictionless flywheel > funnel",p:"Delighted customers pay you and market for you. Apply force on delight, reduce friction (80% self-service), build with quality materials. HubSpot rewrote commissions with an eight-month clawback to protect the wheel.",v:["halligan","dharmesh","bezos"],src:"INBOUND 2018; Bezos's original flywheel",hil:"inbound",hq:"Accounting is the flywheel's sensor; the loyalty engine is its motor. One without the other is just software."},
+{th:"distribution",ph:2,t:"Content brand, not content pile",p:"HubSpot's top 20% of posts drove 93% of leads; halving volume raised leads per post. Alignment beats volume in marketing as much as in teams.",v:["dharmesh"],src:"INBOUND 2017",hil:"moat"},
+{th:"distribution",ph:2,t:"Sell like a friend, not a vendor",p:"Lei Jun's '和用户交朋友': Xiaomi's first 100 fans co-designed MIUI, and the community became the sales force. Reputation (口碑) is the fourth of his four words, after focus, extreme quality and speed.",v:["leijun","dharmesh"],src:"Lei Jun's 专注·极致·口碑·快; Dharmesh's 'delightion'"},
+{th:"distribution",ph:3,t:"SMB and enterprise need different machines",p:"Toast learned that scaling into both segments required distinct sales motions, pricing and support — the same product, but never the same playbook. Don't let the enterprise deal rewrite the SMB engine.",v:["narang","atlassian","halligan"],src:"Narang on 20VC; HubSpot's 'more M than S'"},
+{th:"distribution",ph:3,t:"Everything counts toward the ecosystem",p:"Spark → developers → adoption → enterprise demand → data → new applications. A product asks what our software can do; a platform asks what everyone else can build because we exist.",v:["ghodsi","benioff","lutke"],src:"Ghodsi; Salesforce AppExchange; Shopify's 'arm the rebels'",hil:"ghodsi"},
+
+// ---------- Strategy & category ----------
+{th:"strategy",ph:1,t:"Watch the competition, never follow it",p:"Halligan's line from Arnoldo Hax at Sloan. Bezos's version: 'be customer-focused, not competitor-focused' — competitors are a lagging proxy.",v:["halligan","bezos"],src:"Halliganisms; Bezos letters"},
+{th:"strategy",ph:1,t:"Zag when everyone zigs",p:"Stay SMB when told to go enterprise; build CRM in-house when told to acquire; Pinduoduo went to small towns when e-commerce went upmarket; DoorDash went to suburbs when rivals fought over cities.",v:["halligan","huang","xu"],src:"Halliganisms; Huang's shareholder letters; DoorDash"},
+{th:"strategy",ph:1,t:"Redefine the category, don't compete inside it",p:"Warehouse vs lake was the accepted frame; Databricks asked 'why choose?' and owned 'Lakehouse'. You can burn years explaining you're 20% better inside someone else's frame.",v:["ghodsi","benioff","halligan"],src:"Ghodsi; 'No Software'; 'inbound marketing'",hil:"ghodsi"},
+{th:"strategy",ph:1,t:"Category creation is harder than it looks",p:"'Inbound marketing' took a zillion posts, speeches, a book and a conference. HubSpot's re-runs — inbound sales, CMR, COS — all failed. Lightning in a bottle, once.",v:["halligan"],src:"Halliganisms"},
+{th:"strategy",ph:1,t:"Costco + Disney",p:"Colin Huang's thesis for Pinduoduo: the value of Costco (radically cheap, curated) plus the fun of Disney (social, playful). Name your two ingredients; if you can't, you don't have a strategy.",v:["huang","sinegal"],src:"Huang's shareholder letter; Costco's 14% markup cap"},
+{th:"strategy",ph:2,t:"Become a platform or be eaten by one",p:"Salesforce bought four marketing companies in a season and became 'the Salesforce of marketing'. HubSpot pivoted to a CRM platform rather than be eaten. Shopify: arm the rebels against Amazon.",v:["halligan","lutke"],src:"Halliganisms (h/t Steve Fredette, Toast); Lütke"},
+{th:"strategy",ph:2,t:"Long-term patience, 长期有耐心",p:"Wang Xing's operating word for Meituan: 长期有耐心. Bezos's: 'we're willing to be misunderstood for long periods'. Both funded years of losses to own the category.",v:["wangxing","bezos","jack"],src:"Wang Xing; Bezos 1997 letter; Jack Ma's 'today is hard, tomorrow harder, the day after is beautiful'"},
+{th:"strategy",ph:2,t:"Two-way doors",p:"Most decisions are reversible; make them fast with 70% of the information. Reserve the slow, heavy process for the few one-way doors. Wanting 90% means you're slow.",v:["bezos","hastings"],src:"Bezos 2015 letter; Netflix's 'informed captain'"},
+{th:"strategy",ph:3,t:"The model is not the moat",p:"Every bank has the same frontier models; what differs is the harness, the data, the workflow, the culture. Vertical, specialized beats generic — and the unified dataset compounds.",v:["dharmesh","ghodsi"],src:"INBOUND 2025; Ghodsi",hil:"finance",hq:"A generic copilot can summarize your P&L. It has no idea that a rainy Friday before a home game changes your prep, labor plan and Monday cash. The LLM reasons. The demand engine knows."},
+{th:"strategy",ph:3,t:"Don't trash talk",p:"Respect strong competitors; nothing good comes from poking the bear. Zoom never mocked WebEx; HubSpot never mocked Salesforce.",v:["halligan","yuan"],src:"Halliganisms (h/t Dharmesh Shah)"},
+
+// ---------- Team & hiring ----------
+{th:"team",ph:1,t:"You can't teach smart — be the dumbest in the room",p:"Hire raw brainpower and taste over polish. Jobs: A players hire A players; B players hire C players. Jensen: he'd rather torture you into greatness than let you be average.",v:["halligan","jobs","jensen"],src:"Halliganisms; Jobs; Jensen Huang"},
+{th:"team",ph:1,t:"Complements, not compliments",p:"Don't hire in your own image. Plug your weaknesses with people, not with self-improvement: 100 calories on a strength returns 1,000; on a weakness, 101.",v:["halligan","chesky"],src:"Halliganisms; Chesky on co-founders"},
+{th:"team",ph:1,t:"Don't hire until it hurts",p:"Every hire before product-market fit dilutes the signal. Airbnb spent months on its first engineer because the first ten define the culture. Missionaries over mercenaries.",v:["chesky","halligan"],src:"Chesky; Halliganisms"},
+{th:"team",ph:1,t:"A 10× ambition is a hiring strategy",p:"Awesome people don't like average goals. Set the target big enough that the people you want are the only ones who'd apply.",v:["dharmesh","musk"],src:"Dharmesh (INBOUND 2017); SpaceX"},
+{th:"team",ph:2,t:"Hire managers before you think you need them",p:"Toast's Narang: founders wait too long. The management layer should precede the obvious need, or the founders become the bottleneck and the company stalls at 50.",v:["narang"],src:"Narang on 20VC"},
+{th:"team",ph:2,t:"Talent density, then candor",p:"One brilliant person is worth more than several adequate ones; adequate performance gets a generous severance. The keeper test: would you fight to keep this person? Then lead with context, not control.",v:["hastings"],src:"Reed Hastings, No Rules Rules"},
+{th:"team",ph:2,t:"Recruit from a few years ahead",p:"Executives and board members from companies a few steps ahead work; hires from companies orders of magnitude larger suffer an impedance mismatch. Yamini Rangan came from Dropbox and Workday.",v:["halligan"],src:"Halliganisms"},
+{th:"team",ph:2,t:"Home-grown talent is underrated",p:"The post-round VC playbook says 'uplevel'. Apple, Nvidia, Amazon, Haidilao and Walmart exec teams are full of people who started at the bottom. Haidilao's regional managers were waiters.",v:["halligan","zhangyong","walton","jensen"],src:"Halliganisms; Haidilao's 师徒制; Walton's store-manager pipeline"},
+{th:"team",ph:2,t:"Let people change their fate with their hands",p:"双手改变命运. Haidilao's master–apprentice system pays a manager a share of every restaurant her apprentices open. The incentive links interest to management: 连住利益，锁住管理.",v:["zhangyong","walton"],src:"Zhang Yong; Walton's Rule 2 'share your profits'"},
+{th:"team",ph:3,t:"Exec hires stick ~60% of the time",p:"About 40% of senior hires churn within 18 months. Shrink the panel; hire for 4/4 strengths with some 2/4 weaknesses over all-3/4 candidates. Don't sweat a whiff.",v:["halligan"],src:"Halliganisms"},
+{th:"team",ph:3,t:"Glue people, not just stars",p:"As you scale, leverage shifts from the top rep to the quiet ops wizard who knows which knobs not to break.",v:["halligan"],src:"Halliganisms (h/t Ravi Gupta)"},
+{th:"team",ph:3,t:"Times change, teams change",p:"HubSpot is on its third or fourth management team; people self-select for stage. Don't agonize over replacing leaders as you grow.",v:["halligan","hastings"],src:"Halliganisms; Netflix's 'we're a team, not a family'"},
+
+// ---------- Culture ----------
+{th:"culture",ph:1,t:"Culture is how people decide when you're not in the room",p:"Write it down and treat it like a product — unique and valuable, never done. Dharmesh called culture BS, then wrote the Culture Code viewed millions of times.",v:["halligan","dharmesh","hastings"],src:"Halligan (London 2019); Culture Code; Netflix Culture Deck",hil:"inbound"},
+{th:"culture",ph:1,t:"Open company, no bullshit",p:"Atlassian's founding value. Transparency with employees, customers and investors builds the trust battery; new execs are uncomfortable at first and grateful later.",v:["atlassian","halligan","hastings"],src:"Atlassian values; Halliganisms; Netflix 'sunshining'"},
+{th:"culture",ph:1,t:"Manage the trust battery",p:"Every relationship starts at 50% and charges or drains with each interaction; a CEO gets a few cards to spend on unpopular bets, not 52. Lütke coined it; Halligan borrowed it.",v:["lutke","halligan"],src:"Tobi Lütke; Halliganisms"},
+{th:"culture",ph:1,t:"本分 — do the fundamental thing",p:"Colin Huang's one word for Pinduoduo: stay true, don't take advantage, do the honest work whether or not anyone's watching. Costco's Sinegal: cap the markup at 14% even when Wall Street begs.",v:["huang","sinegal"],src:"Huang's letters; Sinegal"},
+{th:"culture",ph:2,t:"EV > TV > MeV",p:"Everyone optimizes enterprise value over team value over their own. Left unwatched, leaders optimize for their team at another team's expense. #ScalesTax",v:["halligan"],src:"Halliganisms"},
+{th:"culture",ph:2,t:"Treat employees as family — with a P&L",p:"Haidilao houses staff in apartments with cleaners and pays parents a stipend; in return the front line is trusted to comp meals without asking. Walton: appreciate, celebrate, communicate.",v:["zhangyong","walton","sinegal"],src:"Haidilao; Walton's 10 rules; Costco wages"},
+{th:"culture",ph:2,t:"Pain and suffering builds character",p:"Jensen wishes you 'ample doses of pain and suffering' — greatness comes from character, and character from adversity, not smarts. Set expectations low to have resilience high.",v:["jensen","jack"],src:"Jensen at Stanford GSB; Jack Ma on rejection"},
+{th:"culture",ph:3,t:"Culture breaks at ~150",p:"Missionary ratio falls, risk aversion rises, the founder no longer interviews everyone, a new layer appears. Surviving it intact is the startup→scaleup threshold.",v:["halligan"],src:"Halliganisms"},
+{th:"culture",ph:3,t:"Everyone is the CEO of something",p:"Pincus gave every Zynga employee a domain they owned outright. Lütke's version: be the CEO of your own responsibility; DRI on every project.",v:["pincus","lutke","halligan"],src:"Pincus; Lütke; Halligan's 'two people watering one plant'"},
+
+// ---------- Deciding ----------
+{th:"decisions",ph:1,t:"First principles, not analogy",p:"Boil the problem to physics: what does a rocket actually cost in raw materials? Then reason up. Analogies ('that's how the industry does it') smuggle in other people's constraints.",v:["musk"],src:"Musk"},
+{th:"decisions",ph:1,t:"Regret minimization",p:"Project yourself to 80 and ask which choice you'd regret. Bezos left D.E. Shaw that way; it makes the scary, obviously-right choice easier to see.",v:["bezos"],src:"Bezos"},
+{th:"decisions",ph:1,t:"Disagree and commit",p:"Debate hard, then commit fully — even the CEO. Bezos green-lit Amazon Studios projects he disagreed with. Halligan: compromise is the enemy of greatness; break the tie, let arguments have winners.",v:["bezos","halligan"],src:"Bezos 2016 letter; Halliganisms (h/t Brad Coffey)"},
+{th:"decisions",ph:1,t:"Verifier's law",p:"Tasks that are easy to verify get automated — and decided — first. Choose bets where the feedback loop is days, not years; you learn faster than anyone with a five-year loop.",v:["ghodsi","pincus"],src:"Agentic AI Summit 2026; Pincus's 'AI as a failure machine'",hil:"finance",hq:"Banks wait five years to know if a credit call was right. A restaurant knows by Friday."},
+{th:"decisions",ph:2,t:"Wear the NO shirt",p:"Money in the bank breeds yes. Startups die of overeating, not starvation. Halligan wore a literal NO shirt to management meetings; Jobs killed 70% of Apple's products in a year.",v:["halligan","jobs"],src:"Halliganisms; Jobs 1997"},
+{th:"decisions",ph:2,t:"Six-page memos, not slides",p:"Narrative forces thinking; bullet points hide it. Every Amazon meeting starts with silent reading. Netflix does the same with 'farming for dissent' before big calls.",v:["bezos","hastings"],src:"Amazon; No Rules Rules"},
+{th:"decisions",ph:2,t:"Sometimes doing nothing is right",p:"Bias to action is mostly good, but when the team is stretched, don't jerk the wheel. Wang Xing's 既往不恋，纵情向前 — don't cling to the past, charge forward — is about not re-litigating.",v:["halligan","wangxing"],src:"Halliganisms; Wang Xing"},
+{th:"decisions",ph:3,t:"Avoid the tyranny of Or",p:"Fast or good or cheap is a framing, not a law. Push back on 'or' in meetings; sometimes it works.",v:["halligan","huang"],src:"Halliganisms (h/t George Hu); Costco + Disney"},
+
+// ---------- Focus & cadence ----------
+{th:"cadence",ph:1,t:"MSPOT — one page, and omissions are the muscle",p:"Mission, Strategy, Plays, Omissions, Targets. Everyone argues to agreement on a few priorities and shelves their pet rocks. Benioff's V2MOM is the same tool with different letters.",v:["halligan","benioff"],src:"Halliganisms; Behind the Cloud",hil:"inbound",hq:"Our MSPOT fits on one page. The omissions were the hardest part to write and the part I re-read most."},
+{th:"cadence",ph:1,t:"Top-5 things, no 1:1s",p:"Jensen runs 60 direct reports, no one-on-ones, no status reports — every employee sends 'top 5 things' emails and he reads hundreds. Information flows flat and fast. Halligan ran the early years the same way.",v:["jensen","halligan"],src:"Jensen Huang; Halliganisms 'Jensen is mostly right'"},
+{th:"cadence",ph:1,t:"Speed is the strategy — 快",p:"Lei Jun's fourth word. Spotify's Ek: 'we aim to make mistakes faster than anyone else.' Pincus: AI compresses three years into three months, so test a hundred ideas in a week.",v:["leijun","pincus","bezos"],src:"Lei Jun; Ek; Bezos's 'high-velocity decisions'"},
+{th:"cadence",ph:2,t:"Planning seasons, not planning panic",p:"Apr–Jun strategy, Jul–Sep next year's plan, Oct–Dec budgets, Jan–Mar heads-down. Halligan would now run it twice a year — the earth-technology cycle isn't 365 days.",v:["halligan"],src:"Halliganisms"},
+{th:"cadence",ph:2,t:"Work on the business, not in it",p:"A no-meeting Wednesday, a monthly published priority list, Slack turned off. Inboxes are how everyone else's to-do list becomes yours.",v:["halligan","lutke"],src:"Halligan (London 2019); Lütke on deep work",hil:"inbound"},
+{th:"cadence",ph:3,t:"Complexity kills — fight it like gravity",p:"HR policy, comp plans, pricing: complexity creeps in as you scale. Costco sells 4,000 SKUs where a supermarket sells 40,000; that is a decision renewed every quarter.",v:["halligan","sinegal","jobs"],src:"Halliganisms; Costco; Apple"},
+{th:"cadence",ph:3,t:"The more people, the less gets done",p:"The priority list gets shorter as the company gets bigger. Be okay with it; get the big things right. Musk's rule: if you're not adding value in a meeting, leave.",v:["halligan","musk"],src:"Halliganisms; Musk's meeting rules"},
+
+// ---------- Capital, board & exits ----------
+{th:"capital",ph:1,t:"Spend time with investors before you need them",p:"Narang: founders engage investors too late. Halligan: the hardest part of HubSpot wasn't scaling, it was early fundraising when round after round nobody wanted in. Frame the no's.",v:["narang","halligan"],src:"Narang on 20VC; Halligan (London 2019)",hil:"inbound"},
+{th:"capital",ph:2,t:"A truly independent board member",p:"Worth her weight in gold; she has seen the movie and counterbalances the VCs. Source her yourself, not from a VC's circle.",v:["halligan"],src:"Halliganisms"},
+{th:"capital",ph:2,t:"Give up control sooner",p:"Narang's counter-intuitive lesson: founders cling to control longer than helps. Bring in the operators and the board discipline before the company forces you to.",v:["narang","hastings"],src:"Narang on 20VC; Hastings twice asked his Pure Software board to replace him"},
+{th:"capital",ph:3,t:"Make a large pizza and take a slice",p:"A Series D secondary stiffened Halligan's backbone against acquisition interest and aligned him with investors. 'One of my worst financial decisions; no regrets.'",v:["halligan"],src:"Halliganisms"},
+{th:"capital",ph:4,t:"The IPO is the starting line",p:"Repeat it hundreds of times before the listing; never discuss the stock price after. Amazon's 1997 letter is re-attached to every letter since for the same reason.",v:["halligan","bezos"],src:"Halliganisms; Bezos letters"},
+{th:"capital",ph:4,t:"Don't build for the acquirer",p:"HubSpot never got an offer. The odds of a dream acquirer at a good price are low and falling. Build what your grandkids will be proud of; if someone buys it, fine.",v:["halligan","jack"],src:"Halliganisms; Jack Ma's 102 years"},
+
+// ---------- The CEO herself ----------
+{th:"self",ph:1,t:"Feedback is the breakfast of champions",p:"An annual NPS-style 360 — 'would you recommend Brian as CEO? why?' — turned into a 20-page doc of features and bugs, shared with the company. Hastings publishes his own 360 too.",v:["halligan","hastings"],src:"Halliganisms; No Rules Rules"},
+{th:"self",ph:1,t:"Be yourself; everyone else is taken",p:"Halligan imitated other CEOs for years; Yuan is famously gentle, Jensen famously intense, Chesky famously hands-on. The common thread is that none of them is pretending.",v:["halligan","yuan","jensen"],src:"Halliganisms"},
+{th:"self",ph:1,t:"Do the things that scare you",p:"Dharmesh dreaded a founders' retreat so much he planned to fake a selfie with Musk — then Musk sat down next to him at dinner. The scary dinner produced HubSpot's most-used idea.",v:["dharmesh"],src:"INBOUND 2017 & 2019",hil:"inbound",hq:"I walk into restaurants and pitch owners across the counter. None of it comes naturally, and all of it spins the wheel a little faster."},
+{th:"self",ph:1,t:"How hard could it be?",p:"Jensen's answer to why he started Nvidia: if he'd known, he wouldn't have. Naïveté is a feature at phase 1. Imposter syndrome doesn't go away; if you have it, you're not alone.",v:["jensen","halligan"],src:"Jensen; Halliganisms"},
+{th:"self",ph:2,t:"Your strength becomes your weakness",p:"Starting up is doing as many jobs as possible; scaling is shedding as many as possible. Even founder-mode CEOs delegate the non-core.",v:["halligan","chesky"],src:"Halliganisms (h/t Aaron Levie); Chesky"},
+{th:"self",ph:2,t:"CEO groups and a coach",p:"Peers whose problems rhyme with yours, plus someone who is half coach, half psychologist. Halligan's board 'strongly suggested' the coach; he now says it was one of the better ideas.",v:["halligan"],src:"Halliganisms"},
+{th:"self",ph:3,t:"Absorb complexity, pass down clarity",p:"There is always fog inside the company; the leader's job is to clear it. Jensen's 'reasoning in public' and Bezos's memos are both fog-clearing tools.",v:["halligan","jensen","bezos"],src:"JD Sherman via Halligan; Jensen; Amazon"},
+{th:"self",ph:4,t:"Know when to hand over the keys",p:"Most founders wait too long. Halligan decided lying injured in the snow; Bezos, Gates, Jack Ma and Hastings all left the CEO seat with the company still growing. Chairpeople don't drive.",v:["halligan","bezos","jack","hastings"],src:"Halliganisms; successions at Amazon, Alibaba, Netflix"},
+
+// ---------- Crisis & persistence ----------
+{th:"crisis",ph:1,t:"Never waste a good crisis",p:"Name it out loud and use it to change. HubSpot's Q1-2019 outage overhauled product delivery; Covid gave cover for business-model changes. Jack Ma's SARS lockdown built Taobao.",v:["halligan","jack"],src:"Halliganisms; Alibaba 2003"},
+{th:"crisis",ph:1,t:"Don't nibble the shit sandwich",p:"Spinning employees, customers or partners backfires — people are smart and watching. Take the giant bite now. Yuan apologized publicly and fixed Zoom's security in 90 days in 2020.",v:["halligan","yuan"],src:"Halliganisms (h/t Ruth Porat); Zoom's 90-day plan"},
+{th:"crisis",ph:1,t:"Next play",p:"Don't compound a miss with a dumb risk to make up for it. After unforced errors — including your own — move the company on.",v:["halligan"],src:"Halliganisms (h/t Coach K)"},
+{th:"crisis",ph:1,t:"Two forward, one back — it's a grind",p:"There was never a silver-bullet hire, customer or investor. Jensen: Nvidia was 30 days from going out of business for years. Jack Ma was rejected by KFC. Persist through the no's.",v:["halligan","jensen","jack"],src:"Halliganisms; Jensen; Jack Ma"},
+{th:"crisis",ph:2,t:"Tolerant of first mistakes, intolerant of the same one twice",p:"Halligan's persistence rule; Netflix's 'sunshine' the mistake so the whole company learns once. Hastings's biggest error (Qwikster) got its own post-mortem.",v:["halligan","hastings"],src:"Halligan (London 2019); No Rules Rules",hil:"inbound"},
+{th:"crisis",ph:3,t:"Wartime vs peacetime",p:"Peacetime: decisions bubble up, deliberately. Wartime: top-down, fast. Know which you're in and which you thrive in; Halligan thrived in wartime.",v:["halligan"],src:"Halliganisms (h/t Ben Horowitz)"}
+];
+L.forEach((x,i)=>{x.id="f"+String(i+1).padStart(2,"0")});
+const VMAP=Object.fromEntries(VOICES.map(v=>[v.id,v]));
+const F={voice:""};
+const ZH_PHASES=[
+ {name:"创立期",size:"< 10 人",desc:"活下来，找到楔子。创始人什么都干。",trig:"当你招进第一批经理时结束。"},
+ {name:"初建团队",size:"10 – 50",desc:"把创始人的习惯变成团队的习惯。",trig:"当第二层管理开始成形时结束。"},
+ {name:"规模化前夜",size:"50 – 150",desc:"在邓巴数打破文化之前，先把机器搭好。",trig:"当创始人不再认识每个人时结束。"},
+ {name:"规模化",size:"150 +",desc:"灵感多于汗水。经营它，而不是亲自做。",trig:"当你交出钥匙时结束。"}
+];
+const ZH_THEMES={mission:"使命与愿景",customer:"客户至上",product:"产品与楔子",distribution:"分发与销售",strategy:"战略与品类",team:"团队与招聘",culture:"文化",decisions:"决策",cadence:"聚焦与节奏",capital:"资本、董事会与退出",self:"CEO 自身",crisis:"危机与坚持"};
+const ZH_VOICES={bezos:"杰夫·贝索斯",halligan:"布莱恩·哈利根",dharmesh:"达梅什·沙阿",jensen:"黄仁勋",jobs:"史蒂夫·乔布斯",benioff:"马克·贝尼奥夫",hastings:"里德·哈斯廷斯 & 马克·伦道夫",musk:"埃隆·马斯克",lutke:"托比·吕特克",chesky:"布莱恩·切斯基",yuan:"袁征",atlassian:"坎农-布鲁克斯 & 法夸尔",narang:"阿曼·纳朗",pincus:"马克·平卡斯",ghodsi:"阿里·戈德西",jack:"马云",wangxing:"王兴",zhangyong:"张勇",huang:"黄峥",leijun:"雷军",walton:"山姆·沃尔顿",sinegal:"吉姆·辛内加尔",xu:"徐迅 Tony Xu"};
+const ZH_UI={
+ eyebrow:"主记忆 · 创始人智慧合集",h1:"创始人 CEO 手册",
+ lede:"从 <b id=\"nVoices\"></b> 位从零创办过市值 100 亿美元以上上市公司的创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
+ progress:"已成为我们的运营方式",saved:"上次保存",savedLocal:"保存在此浏览器",never:"从未",
+ weAreAt:"我们处于",expand:"全部展开",collapse:"收起",here:"我们在这里",kickIn:"条从此阶段开始",lessons:"条经验",
+ allVoices:"全部声音",voices:"个声音",
+ mark:"标记为我们的运营方式",marked:"✓ 已是我们的运营方式",note:"给我们的备注…",source:"来源",hil:"Hil 的实践",
+ modeNote:"个人副本 —— 你的 ✓、备注和阶段只保存在此浏览器。",
+ unsaved:n=>`${n} 处未保存 —— 保存会为所有人发布新版本`,discard:"放弃",save:"保存到页面",
+ footer:"每条经验均为对创始人观点的转述并注明来源；哈利根部分来自《Halliganisms》与 INBOUND 主题演讲；「Hil 的实践」引自 @hiltinguo 的 X 文章。入选标准：从零创办、市值曾超 100 亿美元的上市公司的创始人 CEO（两个例外已标注：Zynga 以退出价计；Databricks 尚未上市）。阶段映射、✓ 与备注为我们自己的。姊妹页面：<a href=\"https://scaleup-ceo-playbook.onrender.com\" target=\"_blank\" rel=\"noopener\">Scaleup CEO Playbook</a>（仅哈利根）。",
+ oh:"办公时间",ohTitle:"机器人办公时间",ohIntro:"卡在某条经验上？向创始人的 AI 分身提问。目前 23 位创始人中只有布莱恩·哈利根在 Delphi 上有公开分身。",ohOpen:"打开办公时间 ↗",ohOthers:"其他创始人尚无公开分身 —— 我们会持续检查 Delphi Discover。",
+ langBtn:"EN"
+};
+// Same order as L
+const ZH=[
+{t:"永远是第一天",p:"第二天是停滞，然后是无关紧要，然后是衰落。用客户至上、对代理指标的怀疑、拥抱外部趋势和高速决策来抵御它。"},
+{t:"愿景上固执，细节上灵活",p:"目的地坚持多年，路线每周可改。多数创始人正好相反：愿景上灵活，细节上固执。"},
+{t:"起步时少一点野心",p:"愿景越大，起点就该越小越谦卑。平卡斯 41 岁、两度成功后做了一个 Facebook 上的扑克游戏，人们觉得掉价，它成了 Zynga。",hq:"AiriHub 就是我们的扑克游戏：一张集章卡，先在波士顿唐人街的一条街上，然后才是别处。"},
+{t:"零亿美元市场",p:"追逐尚不存在但终将必然的市场。在当下，必然看起来和不确定一模一样——CUDA、云、智能体。在共识到来之前，押注技术和行为的走向。",hq:"餐馆老板们此刻正在经历他们的「云时刻」——智能体 AI，对他们来说同样像是不确定。"},
+{t:"使命才是老板",p:"不是 CEO，不是组织架构图。使命清晰时，可以把人指向它并信任他们去解决。哈利根的版本：MSPOT 以 M 开头是有原因的。"},
+{t:"顺势而为",p:"雷军：站在台风口，猪都能飞。个人努力抵不过大势；先选对趋势，再拼命执行。与「盯市场转折而非对手」是同一个道理。"},
+{t:"对齐向量",p:"每个员工都是一个有大小和方向的向量。九分人才朝不同方向拉，合力为零。规模化期 CEO 的工作：强向量，同方向。"},
+{t:"建造比你活得更久的东西",p:"赢的想法最终不再属于它的名字：漏斗变成飞轮，INBOUND 变成 UNBOUND。造一个你退后之后仍在转的轮子；哈利根的「孙辈测试」。"},
+{t:"客户第一，员工第二，股东第三",p:"顺序很重要。马云把它说透；哈利根的优先级是客户 > 公司 > 部门 > 自己；亚马逊把客户至上放在所有领导力原则之上。"},
+{t:"从客户倒推",p:"从客户体验出发倒推到技术，绝不反过来。亚马逊先写新闻稿和 FAQ 再开发；乔布斯 1997 年在台上说的是同一句话。"},
+{t:"你做的是 B2H —— 面向人的生意",p:"不是 B2B 也不是 B2C。研究买家，而不是同行。HubSpot 创始人被劝去研究营销人员，他们研究了买家，发现十年间买家考虑的供应商数量翻了三倍。",hq:"我的买家是晚上 11 点在打烊和明天备料单之间看手机的餐馆老板。不是一个细分市场，是一个疲惫的人。"},
+{t:"设计 11 星体验",p:"写下你的体验的五星、七星、十一星版本。大部分荒谬；但这个练习会告诉你「荒谬」里哪一部分其实能做出来。"},
+{t:"超出预期的服务就是产品",p:"海底捞卖的是火锅，但客人为排队时的美甲、发圈、可以当场免单的员工而来。一线授权加超额交付，胜过任何菜单。",hq:"我的「Y」源自海底捞的服务模式——由 AI 赋能。"},
+{t:"传递快乐 —— 客户说了算",p:"Zoom 唯一的价值观是「关怀」。袁征离开 WebEx 是因为他不为客户得到的东西自豪；他把公司建在先让客户开心上，其余自然跟上。"},
+{t:"到煤矿工作面去",p:"公司越大，CEO 离一线越远。越级沟通、每月在客服队列里待一小时、把客户请进管理会。张勇仍在巡店；沃尔顿飞去门店。"},
+{t:"人人送外卖",p:"DoorDash 每个员工——包括 CEO——定期送单。不是作秀，而是产品优先级由此决定。徐迅版的「煤矿工作面」。"},
+{t:"最好的客户是替你卖得最多的",p:"不是买得最多的。被取悦的客户是你第三个也是最强的渠道；「人的终身价值」胜过「客户终身价值」，因为拥护者会把你带到他们的下一家公司。"},
+{t:"永远不要堵住出口",p:"容易取消反而让人更愿意买。75% 的人找不到定价就走；96% 的人在你承认并修正错误后留下。信任是每个决策都会移动的分数。"},
+{t:"已验证、更好、全新",p:"照抄在你的受众上已经奏效的东西——不是「借鉴」，是照抄。加一个十个老用户都会说好的改进。再加一个让人愿意尝试的新点子——并假设它会失败。",hq:"你没资格改进相机，除非你已是世上最懂现有每一台相机的人。总账也一样。"},
+{t:"在希望杀死你之前，先杀死希望",p:"信念来自你看过的数据；希望是没有根基的自信。「最小可行」正是希望寄生的地方。要么发布一个最大可上线产品，要么做一个明确的一次性测试——并诚实地说清是哪个。",hq:"账本这个轮子第一次就必须做对。集章卡则允许快速、频繁地失败。"},
+{t:"如果你在问它是不是 A，那它就不是",p:"东西真的行时没人需要问。Zynga 真正的优势不是病毒传播，而是第 365 天留存——唯一在追踪它的消费公司。选一个不会骗你的指标。",hq:"餐馆的周期是一年。食客的第 365 天是输入，餐馆的第 365 天是输出。两个数字都贴在墙上。"},
+{t:"专注就是对一千个好主意说不",p:"乔布斯把苹果产品线砍成四个象限。创新就是说不。至简是终极的精致——Square 用一个塑料读卡器和一个明码标价赢了。"},
+{t:"没人知道任何事 —— 去测试",p:"伦道夫在 Netflix 头几年的规矩：客户行动之前，每个想法都是猜测。便宜、快速、粗糙的测试胜过优雅的论证。「把 DVD 寄进邮箱」的测试只花了一张邮票。"},
+{t:"做不能规模化的事 —— 亲手做",p:"切斯基亲自给房源拍照；Airbnb 头一千个房东是「手工」做出来的。沃尔顿开车去看对手门店。先学会手艺，再自动化。"},
+{t:"最好的零件是没有零件",p:"质疑每一条需求（并写明是谁提的）。删掉零件或流程；简化；然后才加速；然后才自动化。把本不该存在的东西自动化，是经典错误。"},
+{t:"先统一数据，再谈聪明",p:"HubSpot 3 的存在是为了补上「HubSpot 心里的洞」——所有工具之下一个统一的联系人数据库。1+1=3：价值在连接，不在应用。拼接点工具，你得到的是弗兰肯斯坦系统。",hq:"如果你在做 AI 公司，记下这句：模型不是护城河。统一的、活着的数据集才是。"},
+{t:"像做产品一样设计公司",p:"切斯基回到 Airbnb 的「创始人模式」：一张路线图，CEO 是总编辑，没有职能孤岛，产品评审他亲自主持。经理管工作，不管人。"},
+{t:"知道何时推出第二个产品",p:"Toast 等到 POS 成为餐馆的操作系统，才在上面叠加薪资、资金和营销——于是每个产品都已有现成的分发渠道。"},
+{t:"把钱嵌进去",p:"Toast Capital 做到 10 亿美元贷款，因为放贷方已经看得见流水。Square、Shopify、美团也一样：一旦你握有数据，支付和信贷是第二个产品，而不是另一家公司。"},
+{t:"脑子的宽度胜过钱包的宽度",p:"你花不过在位者，但可以比他们想得更深、教得更多、帮得更多。一篇文章写一次，能拉客八年；广告在你停止付费那天就停了。",hq:"我们的护城河和营销是同一项资产：真实、匿名、汇总的餐馆数据，每月发布。"},
+{t:"怎么卖决定为什么赢",p:"买家衡量的是你怎么卖，不只是卖什么。网站上明码标价、自助试用、没有采购流程。Atlassian 不设提成销售、不打折，照样签下数百万美元的单。",hq:"餐馆老板是地球上最「被点评化」的买家。我坐在老板对面时，目标不是成交她——而是十分钟内变得有用。"},
+{t:"开源是分发，不是终点",p:"Spark 因为开源而传播；Databricks 建了企业愿意付费的那一层。别问「怎么保护我的技术」，要问「怎么让它不可回避」。"},
+{t:"从走得到的地方开始",p:"Toast 卖给创始人走路能到的剑桥餐馆。DoorDash 在帕洛阿尔托的郊区起步。张勇在简阳开了一家店。一天能走遍的滩头，才是能学到东西的滩头。",hq:"我们的市场进入从一天能走遍的滩头开始。"},
+{t:"让客户成为英雄",p:"Salesforce 早期的营销是客户证言和一场反对「软件」的假抗议。贝尼奥夫先卖一场运动，再卖产品。创始人的内容不该像「内容」。",hq:"上周我拿着手机走进一家龙虾店，点了个龙虾卷，和经理聊了聊，当晚给老板发了邮件。这就是故事。"},
+{t:"无摩擦飞轮 > 漏斗",p:"被取悦的客户付你钱，还替你营销。在「取悦」上施力，减少摩擦（80% 自助），用优质材料建造。HubSpot 改写了佣金制度，加了八个月的追回条款来保护飞轮。",hq:"记账是飞轮的传感器；会员引擎是它的马达。缺一个，就只是软件。"},
+{t:"内容品牌，而非内容堆",p:"HubSpot 前 20% 的文章带来 93% 的线索；减半发布量反而提高了每篇的线索。对齐胜过数量，营销和团队皆然。"},
+{t:"像朋友一样卖，而非供应商",p:"雷军的「和用户交朋友」：小米最初 100 个粉丝一起设计 MIUI，社区成了销售队伍。口碑是他四个字里的第四个，排在专注、极致、快之后。"},
+{t:"中小企业和大企业需要不同的机器",p:"Toast 发现同时进入两个客群需要不同的销售动作、定价和支持——同一个产品，从来不是同一本剧本。别让大客户的单子改写中小企业引擎。"},
+{t:"一切都算进生态",p:"Spark → 开发者 → 采用 → 企业需求 → 数据 → 新应用。产品问「我们的软件能做什么」；平台问「因为我们存在，别人能做出什么」。"},
+{t:"盯住对手，永不跟随",p:"哈利根从斯隆的 Arnoldo Hax 那里学到的一句话。贝索斯的版本：「以客户为中心，而非以对手为中心」——对手是滞后指标。"},
+{t:"众人向左时向右",p:"被劝做大企业时坚守中小企业；被劝收购时自研 CRM；电商上行时拼多多下沉小城；对手争抢城市时 DoorDash 去了郊区。"},
+{t:"重新定义品类，而非在里面竞争",p:"仓库对湖是既定框架；Databricks 问「为什么要选」，拥有了「湖仓」。你可以耗掉数年解释自己在别人的框架里好 20%。"},
+{t:"创造品类比看起来难",p:"「集客营销」用了无数博文、演讲、一本书和一个大会。HubSpot 的复刻——集客销售、CMR、COS——全部失败。瓶中闪电只有一次。"},
+{t:"Costco + 迪士尼",p:"黄峥对拼多多的论述：Costco 的价值（极致便宜、精选）加迪士尼的乐趣（社交、好玩）。说出你的两种配料；说不出，你就没有战略。"},
+{t:"成为平台，否则被平台吃掉",p:"Salesforce 一季买下四家营销公司，成了「营销界的 Salesforce」。HubSpot 转向 CRM 平台以免被吃掉。Shopify：武装反抗亚马逊的起义者。"},
+{t:"长期有耐心",p:"王兴给美团的操作词：长期有耐心。贝索斯的：「我们愿意长期被误解」。两者都用多年亏损换来了品类。"},
+{t:"双向门",p:"多数决策可逆；用 70% 的信息快速做。把慢而重的流程留给少数单向门。等到 90% 意味着你已经太慢。"},
+{t:"模型不是护城河",p:"每家银行都有同样的前沿模型；差别在于框架、数据、工作流和文化。垂直、专业胜过通用——而统一的数据集会复利。",hq:"通用副驾驶能总结你的损益表，却不知道主场比赛前的雨天周五会改变你的备料、排班和周一的现金。LLM 负责推理，需求引擎负责知道。"},
+{t:"不要口出恶言",p:"尊重强大的对手；招惹熊没有好处。Zoom 从不嘲笑 WebEx；HubSpot 从不嘲笑 Salesforce。"},
+{t:"聪明教不出来 —— 做房间里最笨的人",p:"雇原生脑力和品味，而非打磨。乔布斯：A 级人才雇 A 级；B 级雇 C 级。黄仁勋：宁愿把你折磨成伟大，也不让你平庸。"},
+{t:"要互补，不要恭维",p:"别按自己的样子招人。用人来补你的短板，而不是靠自我提升：100 卡投在长处回报 1000，投在短处回报 101。"},
+{t:"不到疼的时候不招人",p:"产品市场契合之前的每一次招聘都会稀释信号。Airbnb 花了几个月招第一位工程师，因为头十个人定义文化。传教士优于雇佣兵。"},
+{t:"10 倍的野心就是招聘策略",p:"优秀的人不喜欢平庸的目标。把目标定得足够大，让你想要的人成为唯一会来应聘的人。"},
+{t:"在你觉得需要之前就招经理",p:"Toast 的纳朗：创始人等太久了。管理层应先于明显的需要出现，否则创始人成为瓶颈，公司卡在 50 人。"},
+{t:"先人才密度，再坦诚",p:"一个杰出的人胜过几个合格的人；合格的表现拿到丰厚的遣散费。留人测试：你会为留住这个人而战吗？然后用背景而非控制来领导。"},
+{t:"从领先你几年的公司招人",p:"来自领先你几步的公司的高管和董事有效；来自大你几个数量级的公司的人会有阻抗失配。Yamini Rangan 来自 Dropbox 和 Workday。"},
+{t:"自己培养的人才被低估了",p:"融资后的 VC 剧本是「升级」。苹果、英伟达、亚马逊、海底捞、沃尔玛的高管团队里满是从底层做起的人。海底捞的大区经理曾是服务员。"},
+{t:"双手改变命运",p:"海底捞的师徒制让店长从徒弟开的每一家店里分成。激励把利益和管理连在一起：连住利益，锁住管理。"},
+{t:"高管招聘成功率约 60%",p:"约 40% 的高管在 18 个月内离开。缩小面试小组；选有 4/4 强项和一些 2/4 弱项的人，而非全是 3/4 的人。失手一两次别太在意。"},
+{t:"胶水型人才，不只是明星",p:"随着规模扩大，杠杆从头号销售转向那个安静的运营高手——知道哪些旋钮不能碰。"},
+{t:"时代变，团队变",p:"HubSpot 已是第三或第四届管理团队；人会按阶段自我选择。成长中更换领导者，不必过度纠结。"},
+{t:"文化是你不在场时人们怎么做决定",p:"把它写下来，像产品一样对待——独特、有价值、永不完成。达梅什曾说文化是扯淡，然后写下了被浏览数百万次的《文化守则》。"},
+{t:"开放公司，不扯淡",p:"Atlassian 的创始价值观。对员工、客户和投资人透明，充电信任电池；新高管起初不适，之后感激。"},
+{t:"管理信任电池",p:"每段关系从 50% 起步，随每次互动充电或放电；CEO 只有几张牌可以花在不受欢迎的押注上，而不是 52 张。吕特克首创，哈利根借用。"},
+{t:"本分",p:"黄峥给拼多多的一个词：守本分，不占便宜，无论有没有人看都做诚实的活。Costco 的辛内加尔：即使华尔街恳求，也把加价率封顶在 14%。"},
+{t:"EV > TV > MeV",p:"每个人都应优先企业价值，其次团队价值，再次个人价值。无人盯着时，领导者会为自己团队牺牲别的团队。#规模税"},
+{t:"把员工当家人 —— 带着损益表",p:"海底捞给员工配有保洁的宿舍、给父母发津贴；作为回报，一线可以不经请示免单。沃尔顿：欣赏、庆祝、沟通。"},
+{t:"痛苦与磨难塑造品格",p:"黄仁勋祝你「充足剂量的痛苦与磨难」——伟大来自品格，品格来自逆境，而非聪明。期望放低，韧性才高。"},
+{t:"文化在 150 人左右会破",p:"传教士比例下降，风险规避上升，创始人不再面试每个人，新的管理层出现。完整地熬过去，就是从初创到规模化的门槛。"},
+{t:"人人都是某件事的 CEO",p:"平卡斯给 Zynga 每个员工一块完全归自己的领地。吕特克的版本：做你自己职责的 CEO；每个项目一个直接负责人。"},
+{t:"第一性原理，而非类比",p:"把问题煮到物理层面：火箭的原材料到底值多少钱？然后往上推理。类比（「行业都这么做」）偷运进别人的约束。"},
+{t:"最小化遗憾",p:"把自己投射到 80 岁，问哪个选择会后悔。贝索斯就是这样离开 D.E. Shaw 的；它让那个可怕却显然正确的选择更容易看清。"},
+{t:"不同意但执行",p:"激烈辩论，然后全力执行——CEO 也一样。贝索斯批准过自己不认同的亚马逊影业项目。哈利根：妥协是伟大的敌人；打破平局，让争论有赢家。"},
+{t:"验证者定律",p:"容易验证的任务最先被自动化——也最先被决定。选反馈周期以天而非年计的赌注；你会比任何五年周期的人学得更快。",hq:"银行要等五年才知道一笔信贷决定对不对。餐馆到周五就知道。"},
+{t:"穿上 NO 衫",p:"银行里有钱就会滋生「好」。初创公司死于吃撑，而非饿死。哈利根穿着一件真的 NO 衫开管理会；乔布斯一年内砍掉苹果 70% 的产品。"},
+{t:"六页备忘录，不用幻灯片",p:"叙事迫使思考；要点隐藏思考。亚马逊每次会议从静默阅读开始。Netflix 在大决策前用「征集异议」做同样的事。"},
+{t:"有时什么都不做才对",p:"行动偏好大体是好的，但团队吃紧时别猛打方向盘。王兴的「既往不恋，纵情向前」讲的是不反复翻旧账。"},
+{t:"避免「或」的暴政",p:"快或好或便宜是一种框架，不是定律。在会上反对「或」；有时真的管用。"},
+{t:"MSPOT —— 一页纸，「省略」才是肌肉",p:"使命、战略、打法、省略、目标。所有人争论到就几个优先级达成一致，把各自的宠物石头收起来。贝尼奥夫的 V2MOM 是换了字母的同一工具。",hq:"我们的 MSPOT 只有一页。「省略」是最难写的部分，也是我重读最多的部分。"},
+{t:"「五件大事」，不做一对一",p:"黄仁勋管 60 个直接下属，不做一对一，不要状态汇报——每个员工发「五件大事」邮件，他读几百封。信息扁平快速地流动。哈利根早年也这么做。"},
+{t:"速度就是战略 —— 快",p:"雷军的第四个字。Spotify 的 Ek：「我们的目标是比任何人更快地犯错。」平卡斯：AI 把三年压成三个月，所以一周测一百个想法。"},
+{t:"规划季节，而非规划恐慌",p:"4–6 月战略，7–9 月明年计划，10–12 月预算，1–3 月埋头执行。哈利根现在会一年跑两轮——地球与技术的周期不是 365 天。"},
+{t:"经营业务，而非埋在业务里",p:"无会议的周三、每月公布的优先级清单、彻底关掉 Slack。收件箱是别人的待办变成你的待办的方式。"},
+{t:"复杂性会杀人 —— 像对抗重力一样对抗它",p:"人事政策、薪酬方案、定价：规模化时复杂性悄悄渗入。Costco 只卖 4,000 个 SKU，超市卖 40,000；那是每个季度都要重新做的决定。"},
+{t:"人越多，做成的越少",p:"公司越大，优先级清单越短。接受它；把大事做对。马斯克的规则：会上没在创造价值，就离开。"},
+{t:"在需要之前就和投资人相处",p:"纳朗：创始人接触投资人太晚。哈利根：HubSpot 最难的不是规模化，而是早期一轮又一轮没人愿投的融资。把那些「不」裱起来。"},
+{t:"一位真正独立的董事",p:"价值连城；她看过这部电影，能制衡 VC。自己去找，而不是从 VC 的圈子里来。"},
+{t:"更早放弃控制",p:"纳朗的反直觉教训：创始人抓着控制权的时间比有益的更久。在公司逼你之前，引入运营者和董事会纪律。"},
+{t:"做一张大披萨，路上切一块",p:"D 轮的老股转让让哈利根在收购意向面前挺直了腰，也和投资人对齐。「我最糟的财务决定之一；毫不后悔。」"},
+{t:"IPO 是起跑线",p:"上市前重复几百遍；上市后绝不谈股价。亚马逊每封股东信都附上 1997 年那封，理由相同。"},
+{t:"别为收购方而建",p:"HubSpot 从未收到过报价。理想买家出好价的概率很低且在下降。建你的孙辈会自豪的东西；有人要买，也行。"},
+{t:"反馈是冠军的早餐",p:"每年一次 NPS 式 360——「你会推荐 Brian 当 CEO 吗？为什么？」——变成一份 20 页的「功能与缺陷」文档，分享给全公司。哈斯廷斯也公开自己的 360。"},
+{t:"做你自己；别人都有人当了",p:"哈利根模仿别的 CEO 多年；袁征出了名的温和，黄仁勋出了名的强硬，切斯基出了名的亲力亲为。共同点是没有一个在假装。"},
+{t:"做让你害怕的事",p:"达梅什害怕一次创始人静修，甚至打算和马斯克假合影——结果马斯克在晚餐时坐到他旁边。那顿可怕的晚餐产出了 HubSpot 最常用的想法。",hq:"我走进餐馆隔着柜台向老板推销。这些没有一件是自然而然的，而每一件都让飞轮转得更快一点。"},
+{t:"能有多难？",p:"黄仁勋回答为何创办英伟达：如果早知道，他不会干。第一阶段，天真是一种特性。冒名顶替感不会消失；如果你有，你不孤单。"},
+{t:"你的长处会变成短处",p:"创业是尽可能多地做事；规模化是尽可能多地放手。连创始人模式的 CEO 也要把非核心的事交出去。"},
+{t:"CEO 小组和教练",p:"问题与你押韵的同行，加上一个半教练半心理医生的人。哈利根的董事会「强烈建议」他请教练；他现在说这是较好的主意之一。"},
+{t:"吸收复杂，传递清晰",p:"公司里永远有雾；领导者的工作是吹散它。黄仁勋的「公开推理」和贝索斯的备忘录都是吹雾工具。"},
+{t:"知道何时交出钥匙",p:"多数创始人等太久。哈利根是躺在雪地里受伤时决定的；贝索斯、盖茨、马云、哈斯廷斯都在公司仍在增长时离开了 CEO 位置。董事长不开车。"},
+{t:"永远别浪费一场好危机",p:"大声说出来，用它来改变。HubSpot 2019 年一季度末的宕机重塑了产品交付；疫情为商业模式变革提供了掩护。马云的非典封锁催生了淘宝。"},
+{t:"吃屎三明治别小口啃",p:"对员工、客户或伙伴粉饰会反噬——人很聪明，且在看着。现在就大口咬下去。袁征 2020 年公开道歉，90 天修好了 Zoom 的安全问题。"},
+{t:"下一球",p:"别用一次愚蠢的冒险去弥补一次失手。在非受迫性失误之后——包括你自己的——让公司往前走。"},
+{t:"进两步退一步 —— 这是磨",p:"从来没有一颗银弹式的招聘、客户或投资人。黄仁勋：英伟达多年里离倒闭只有 30 天。马云被肯德基拒过。挺过那些「不」。"},
+{t:"容忍第一次犯错，不容忍同一个错犯两次",p:"哈利根的坚持规则；Netflix 把错误「晒出来」让全公司只学一次。哈斯廷斯最大的错误（Qwikster）有自己的复盘。"},
+{t:"战时 vs 和平时期",p:"和平时期：决策自下而上，审慎。战时：自上而下，迅速。知道你处于哪种，以及你在哪种里如鱼得水；哈利根擅长战时。"}
+];
+
+let LANG="en"; try{LANG=localStorage.getItem("fcp-lang")||"en"}catch(e){}
+const zh=()=>LANG==="zh";
+const T=k=>zh()?ZH_UI[k]:EN_UI[k];
+const EN_UI={
+ eyebrow:"Master memory · consolidated founder wisdom",h1:"Founder-CEO Playbook",
+ lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs who each built a public company worth more than $10B from scratch — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
+ progress:"part of how we run",saved:"last saved",savedLocal:"saved in this browser",never:"never",
+ weAreAt:"We are at",expand:"Expand all",collapse:"Collapse",here:"We are here",kickIn:"kick in",lessons:"lessons",
+ allVoices:"All voices",voices:"voices",
+ mark:"Mark as part of how we run",marked:"✓ Part of how we run",note:"Note for us…",source:"Source",hil:"Hil\'s take",
+ modeNote:"Personal copy — your ✓ marks, notes and phase are saved in this browser only.",
+ unsaved:n=>`${n} unsaved change${n>1?"s":""} — saving publishes a new version for everyone`,discard:"Discard",save:"Save to page",
+ footer:'Every lesson is a paraphrase attributed to its founder(s) with the source named; the Halligan material comes from <a href="https://www.linkedin.com/pulse/startup-founder-scaleup-ceos-journey-from-0-25billion-brian-halligan-e1f4e/" target="_blank" rel="noopener">Halliganisms</a> and the INBOUND keynotes; "Hil\'s take" lines are quoted from <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">@hiltinguo\'s X articles</a>. Selection rule: founder-CEO of a company that reached a public market cap above $10B, built from scratch — two flagged exceptions (Zynga\'s exit value; Databricks still private). Phase mapping, ✓ marks and notes are ours. Companion to the <a href="https://scaleup-ceo-playbook.onrender.com" target="_blank" rel="noopener">Scaleup CEO Playbook</a> (Halligan only).',
+ oh:"office hours",ohTitle:"Robot office hours",ohIntro:"Stuck on a lesson? Ask a founder\'s AI twin. Of the 23 founders here, only Brian Halligan has a public twin on Delphi so far.",ohOpen:"Open office hours ↗",ohOthers:"No public twin yet for the other founders — we re-check Delphi Discover periodically.",
+ langBtn:"中文"
+};
+const OFFICE_HOURS=[{id:"halligan",n:"Robot Brian Halligan",u:"https://www.delphi.ai/bhalligan",host:"delphi.ai/bhalligan"}];
+const PH=i=>zh()?Object.assign({},PHASES[i],ZH_PHASES[i]):PHASES[i];
+const THN=t=>zh()?ZH_THEMES[t.id]:t.name;
+const VN=v=>zh()?(ZH_VOICES[v.id]||v.n):v.n;
+const LT=(x)=>{const i=L.indexOf(x);return zh()&&ZH[i]?ZH[i].t:x.t};
+const LP=(x)=>{const i=L.indexOf(x);return zh()&&ZH[i]?ZH[i].p:x.p};
+const LQ=(x)=>{const i=L.indexOf(x);return zh()&&ZH[i]&&ZH[i].hq?ZH[i].hq:x.hq};
+function applyLang(){
+  document.documentElement.lang=zh()?"zh-Hans":"en";
+  $("#eyebrow").textContent=T("eyebrow"); $("#h1").textContent=T("h1"); $("#lede").innerHTML=T("lede");
+  $("#lblWeAreAt").textContent=T("weAreAt"); $("#expandAll").textContent=T("expand"); $("#collapseAll").textContent=T("collapse");
+  $("#footer").innerHTML=T("footer"); $("#discard").textContent=T("discard"); $("#save").textContent=T("save");
+  $("#langBtn").textContent=T("langBtn"); $("#ohTitle").textContent=T("ohTitle"); $("#ohIntro").textContent=T("ohIntro"); $("#ohOthers").textContent=T("ohOthers");
+  $("#ohList").innerHTML=OFFICE_HOURS.map(o=>`<a class="go" href="${o.u}" target="_blank" rel="noopener">${esc(o.n)} · ${T("oh")} ↗</a><span class="fine">${esc(o.host)}</span>`).join("");
+  $("#rbLabel").textContent=zh()?"机器人办公时间":"Robot office hours";
+  if(mode==="personal"){$("#modeNote").textContent=T("modeNote")}
+  updateSavebar();
+}
+
+// ---------- state ----------
+const stateEl=document.getElementById("state");
+let saved=migrate(JSON.parse(stateEl.textContent));
+let state=JSON.parse(JSON.stringify(saved));
+let dirty=new Set(); let canWrite=true; let artifactNS=null; let mode="team";
+const LS="fcp-personal-v1";
+function migrate(s){
+  if(s.v===3)return s;
+  const out={v:3,phase:s.phase||1,lessons:{},updatedAt:s.updatedAt||null};
+  for(const [id,v] of Object.entries(s.lessons||{})){
+    const done=v.status==="embed"||(v.exe!=null&&v.exe>=4);
+    const note=v.evidence||v.note||"";
+    if(done||note) out.lessons[id]={done,note};
+  }
+  return out;
+}
+const get=id=>state.lessons[id]||{done:false,note:""};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let viewPhase=state.phase;
+const openThemes=new Set(); const openLeaves=new Set();
+
+// ---------- render ----------
+function render(){ applyLang(); renderVoices(); renderSpine(); renderTree(); renderProgress(); }
+$("#langBtn").addEventListener("click",()=>{LANG=zh()?"en":"zh";try{localStorage.setItem("fcp-lang",LANG)}catch(e){}render()});
+function renderVoices(){
+  const n=id=>L.filter(x=>x.v.includes(id)).length;
+  let h=`<button class="vchip all" data-v="" aria-pressed="${F.voice===""?"true":"false"}">${T("allVoices")} · ${VOICES.length}</button>`;
+  for(const V of VOICES) h+=`<button class="vchip" data-v="${V.id}" aria-pressed="${F.voice===V.id?"true":"false"}" title="${esc(V.src)}${V.note?" · "+esc(V.note):""}"><span class="av" style="background:${V.c}">${esc(initials(V.n))}</span>${esc(VN(V))}<span class="co">${esc(V.co)} · ${esc(V.cap)}</span></button>`;
+  $("#voices").innerHTML=h;
+  const V=VMAP[F.voice]; const vn=$("#vnote"); if(vn) vn.textContent=V?`${VN(V)} · ${V.co} (${V.cap}) · ${V.src}${V.note?" · "+V.note:""}`:"";
+  $("#nLessons").textContent=L.length; $("#nVoices").textContent=VOICES.length;
+}
+$("#voices").addEventListener("click",e=>{const b=e.target.closest(".vchip");if(!b)return;F.voice=b.dataset.v;render()});
+function renderSpine(){
+  let h="";
+  for(const P of PHASES){
+    const items=L.filter(x=>x.ph===P.p&&visible(x)), d=items.filter(x=>get(x.id).done).length;
+    const Z=PH(PHASES.indexOf(P));
+    h+=`<button class="pnode" data-p="${P.p}" ${state.phase===P.p?'data-here="1"':""} aria-pressed="${viewPhase===P.p?"true":"false"}">
+      <div class="dot">P${P.p}</div><div class="t">${esc(Z.name)}</div><div class="s">${Z.size}</div><div class="k">${d}/${items.length} ✓</div><span class="here">${T("here")}</span></button>`;
+  }
+  $("#spine").innerHTML=h;
+  $("#phaseSel").innerHTML=PHASES.map((P,i)=>`<option value="${P.p}" ${state.phase===P.p?"selected":""}>P${P.p} · ${esc(PH(i).name)} (${PH(i).size})</option>`).join("");
+  $("#phaseSel").disabled=!canWrite;
+}
+function leafHTML(x){
+  const v=get(x.id), open=openLeaves.has(x.id);
+  const avs=x.v.map(id=>`<span class="av" style="background:${VMAP[id].c}" title="${esc(VMAP[id].n)}">${esc(initials(VMAP[id].n))}</span>`).join("");
+  const vl=x.v.map(id=>`<span style="background:${VMAP[id].c}">${esc(VN(VMAP[id]))} · ${esc(VMAP[id].co)}</span>`).join("");
+  const hil=x.hil?`<div class="hil"><b>${T("hil")}</b>${LQ(x)?esc(LQ(x))+" ":""}<a href="${HIL[x.hil].u}" target="_blank" rel="noopener">${esc(HIL[x.hil].t)} ↗</a></div>`:"";
+  return `<div class="branch"><div class="node leaf ${v.done?"done":""} ${v.note?"noted":""} ${open?"open":""}" data-id="${x.id}">
+    <button data-act="leaf"><span class="chk">✓</span><span>${esc(LT(x))}${x.v.length>=3?'<span class="consensus">· '+x.v.length+' '+T("voices")+'</span>':""}</span><span class="avs">${avs}</span></button>
+    <div class="detail"><p>${esc(LP(x))}</p><div class="vl">${vl}</div><span class="src">${T("source")}: ${esc(x.src)}</span>${hil}
+      ${canWrite?`<div class="ctl"><button class="mark" data-act="mark">${v.done?T("marked"):T("mark")}</button></div>`:(v.done?`<div class="ctl"><span style="font-size:12px;color:var(--done-ink)">${T("marked")}</span></div>`:"")}
+      <textarea rows="1" data-act="note" placeholder="${T("note")}" ${canWrite?"":"disabled"}>${esc(v.note)}</textarea>${!canWrite&&v.note?`<p style="margin:0;font-size:12.5px">${esc(v.note)}</p>`:""}
+    </div></div></div>`;
+}
+function initials(n){return n.replace(/[\u4e00-\u9fff]/g,"").trim().split(/[\s&]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase()}
+function visible(x){return !F.voice||x.v.includes(F.voice)}
+function renderTree(){
+  const P=PHASES.find(p=>p.p===viewPhase);
+  const items=L.filter(x=>x.ph===P.p&&visible(x));
+  let kids="";
+  for(const TH of THEMES){
+    const ti=items.filter(x=>x.th===TH.id); if(!ti.length)continue;
+    const d=ti.filter(x=>get(x.id).done).length, key=P.p+":"+TH.id;
+    kids+=`<div class="branch ${openThemes.has(key)?"open":""}" data-theme="${key}"><div class="node theme"><button data-act="theme"><span>${esc(THN(TH))}</span><span class="c"><i>${d}✓</i> / ${ti.length}</span></button></div>
+      <div class="kids">${ti.map(leafHTML).join("")}</div></div>`;
+  }
+  const tree=$("#tree"); tree.dataset.p=P.p;
+  const Z=PH(PHASES.indexOf(P));
+  tree.innerHTML=`<div class="branch open"><div class="node root"><div class="t">P${P.p} · ${esc(Z.name)}</div><div class="s">${Z.size} · ${items.length} ${T("lessons")}</div><div class="d">${esc(Z.desc)}</div><div class="trig">${esc(Z.trig)}</div></div><div class="kids">${kids}</div></div>`;
+  tree.querySelectorAll("textarea").forEach(autosize);
+}
+function renderProgress(){
+  const d=L.filter(x=>get(x.id).done).length;
+  const when=state.updatedAt?new Date(state.updatedAt).toLocaleDateString(zh()?"zh-CN":undefined,{month:"short",day:"numeric",year:"numeric"}):T("never");
+  $("#progress").innerHTML=`<b>${d}<span style="font-size:14px;color:var(--ink-3)"> / ${L.length}</span></b>${T("progress")}<br>${mode==="personal"?T("savedLocal"):T("saved")+" "+esc(when)}`;
+}
+
+// ---------- interaction ----------
+$("#spine").addEventListener("click",e=>{const b=e.target.closest(".pnode");if(!b)return;viewPhase=+b.dataset.p;render()});
+$("#phaseSel").addEventListener("change",e=>{state.phase=+e.target.value;viewPhase=state.phase;markDirty("phase");render()});
+$("#expandAll").addEventListener("click",()=>{L.filter(x=>x.ph===viewPhase).forEach(x=>openThemes.add(viewPhase+":"+x.th));renderTree()});
+$("#collapseAll").addEventListener("click",()=>{[...openThemes].filter(k=>k.startsWith(viewPhase+":")).forEach(k=>openThemes.delete(k));openLeaves.clear();renderTree()});
+$("#tree").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;
+  const act=b.dataset.act;
+  if(act==="theme"){const br=b.closest(".branch");const k=br.dataset.theme;openThemes.has(k)?openThemes.delete(k):openThemes.add(k);br.classList.toggle("open");return}
+  const leaf=b.closest(".node.leaf"), id=leaf.dataset.id;
+  if(act==="leaf"){openLeaves.has(id)?openLeaves.delete(id):openLeaves.add(id);leaf.classList.toggle("open");leaf.querySelectorAll("textarea").forEach(autosize);return}
+  if(act==="mark"&&canWrite){const v=get(id);state.lessons[id]={done:!v.done,note:v.note||""};markDirty(id);renderSpine();renderTree();renderProgress()}
+});
+$("#tree").addEventListener("input",e=>{
+  const t=e.target;if(t.dataset.act!=="note")return;autosize(t);
+  const id=t.closest(".node.leaf").dataset.id, v=get(id);
+  state.lessons[id]={done:v.done,note:t.value};t.closest(".node.leaf").classList.toggle("noted",!!t.value.trim());markDirty(id);
+});
+function autosize(t){t.style.height="auto";t.style.height=(t.scrollHeight+2)+"px"}
+function markDirty(k){
+  if(mode==="personal"){try{localStorage.setItem(LS,JSON.stringify({phase:state.phase,lessons:state.lessons,at:new Date().toISOString()}))}catch(e){} renderProgress();return}
+  dirty.add(k);updateSavebar()}
+function enterPersonal(){
+  mode="personal";canWrite=true;dirty.clear();updateSavebar();
+  try{const p=JSON.parse(localStorage.getItem(LS)||"null");if(p){if(p.phase)state.phase=p.phase;Object.assign(state.lessons,p.lessons||{});state.updatedAt=p.at||state.updatedAt}}catch(e){}
+  const n=$("#modeNote");n.textContent=T("modeNote");n.hidden=false;
+  render();
+}
+function updateSavebar(){const n=dirty.size;$("#savebar").classList.toggle("on",n>0);$("#rb").classList.toggle("lift",n>0);$("#savemsg").textContent=n?T("unsaved")(n):""}
+$("#rbBtn").addEventListener("click",()=>{const o=$("#rb").classList.toggle("open");$("#rbBtn").setAttribute("aria-expanded",o)});
+$("#discard").addEventListener("click",()=>{state=JSON.parse(JSON.stringify(saved));dirty.clear();updateSavebar();render()});
+$("#save").addEventListener("click",save);
+
+function buildHTML(){
+  const clone=document.documentElement.cloneNode(true);
+  ["#tree","#spine","#progress","#phaseSel","#voices","#vnote","#lede","#footer","#ohList"].forEach(s=>{const el=clone.querySelector(s);if(el)el.innerHTML=""});
+  clone.querySelector("#savebar").classList.remove("on"); clone.querySelector("#toast").hidden=true; clone.querySelector("#rb").classList.remove("open","lift"); const mn=clone.querySelector("#modeNote"); mn.hidden=true; mn.textContent="";
+  const out={v:3,phase:state.phase,lessons:{},updatedAt:new Date().toISOString()};
+  for(const [id,v] of Object.entries(state.lessons)){const note=(v.note||"").trim(); if(v.done||note) out.lessons[id]={done:!!v.done,note}}
+  clone.querySelector("#state").textContent=JSON.stringify(out).replace(/</g,"\\u003c");
+  return "<!doctype html>\n"+clone.outerHTML;
+}
+async function save(){
+  if(!artifactNS){toast("Saving isn't available in this view.");return}
+  const btn=$("#save");btn.disabled=true;btn.textContent="Saving…";
+  try{ await artifactNS.publish(buildHTML()); }
+  catch(err){
+    btn.disabled=false;btn.textContent="Save to page";
+    const code=err&&err.code;
+    if(code==="conflict")toast("Someone else saved first — reloading to the latest version.");
+    else if(code==="not_writer"||code==="not_granted"){toast("You can't edit the shared page — switching to your personal copy.");enterPersonal()}
+    else if(code==="rate_limited")toast("Saving too often — wait a moment and try again.");
+    else toast("Couldn't save: "+(err&&err.message||code||"unknown error"));
+  }
+}
+let toastT; function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true},4000)}
+
+// open the first theme so the tree isn't bare
+(function(){const first=L.find(x=>x.ph===viewPhase);if(first)openThemes.add(viewPhase+":"+first.th)})();
+render();
+(async()=>{
+  try{ if(window.claude&&typeof window.claude.use==="function") artifactNS=await window.claude.use("artifact"); }catch(e){artifactNS=null}
+  if(!artifactNS)enterPersonal();
+})();
+})();
+</script>
+
+</body>
+</html>

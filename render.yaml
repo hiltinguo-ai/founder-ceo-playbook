@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: founder-ceo-playbook
+    runtime: static
+    staticPublishPath: ./public
+    buildCommand: ""
