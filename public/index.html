@@ -68,13 +68,18 @@ h1{font-family:var(--cond);font-weight:700;font-size:32px;line-height:1.05;margi
 .langbtn:hover{background:var(--ink);color:var(--bg)}
 /* ---- voices ---- */
 .voices{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:2px 0 8px}
+.vpills{display:contents}
+.voices:not(.open) .vpills{display:none}
 .vchip{font:inherit;font-size:11.5px;display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 4px;border:1px solid var(--line);background:var(--panel);color:var(--ink-2);border-radius:999px;cursor:pointer}
 .vchip .av{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:9.5px;color:#fff}
 .vchip .co{color:var(--ink-3);font-family:var(--mono);font-size:10px}
 .vchip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .vchip[aria-pressed="true"] .co{color:var(--bg);opacity:.7}
 .vchip.all{padding:3px 10px}
-.vnote{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin:-2px 0 6px;min-height:14px}
+.vchip.vtoggle{padding:3px 12px;font-weight:600}
+.vchip.vtoggle .chev{font-size:10px;opacity:.7}
+.vnote{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin:-2px 0 6px;min-height:0}
+.vnote:not(:empty){min-height:14px}
 .avs{display:inline-flex;margin-left:auto;flex:none}
 .avs .av{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:8.5px;color:#fff;border:1.5px solid var(--panel);margin-left:-5px}
 .avs .av:first-child{margin-left:0}
@@ -427,7 +432,7 @@ const ZH_UI={
  lede:"从 <b id=\"nVoices\"></b> 位从零创办过市值 100 亿美元以上上市公司的创始人 CEO（贝索斯、哈利根与沙阿、黄仁勋、乔布斯、贝尼奥夫、哈斯廷斯、吕特克、切斯基、纳朗、马云、王兴、张勇等）身上，提炼出 <b id=\"nLessons\"></b> 条经验，并附上 <a href=\"https://x.com/hiltinguo/articles\" target=\"_blank\" rel=\"noopener\">Hil 在 X 上的文章</a> 中已经付诸实践的部分。同样的递进树：阶段 → 态度 / 战略 / 执行 → 主题 → 经验。几位创始人说同一件事时，合并为一条、多个声音。",
  progress:"已成为我们的运营方式",saved:"上次保存",savedLocal:"保存在此浏览器",never:"从未",
  weAreAt:"我们处于",expand:"全部展开",collapse:"收起",here:"我们在这里",kickIn:"条从此阶段开始",lessons:"条经验",
- allVoices:"全部声音",voices:"个声音",
+ allVoices:"全部声音",voices:"个声音",voicesToggle:"位创始人 CEO",voicesHide:"收起创始人",
  mark:"标记为我们的运营方式",marked:"✓ 已是我们的运营方式",note:"给我们的备注…",source:"来源",hil:"Hil 的实践",
  modeNote:"个人副本 —— 你的 ✓、备注和阶段只保存在此浏览器。",
  unsaved:n=>`${n} 处未保存 —— 保存会为所有人发布新版本`,discard:"放弃",save:"保存到页面",
@@ -552,7 +557,7 @@ const EN_UI={
  lede:'<b id="nLessons"></b> lessons consolidated from <b id="nVoices"></b> founder-CEOs who each built a public company worth more than $10B from scratch — Bezos, Halligan &amp; Shah, Jensen, Jobs, Benioff, Hastings, Lütke, Chesky, Narang, Jack Ma, Wang Xing, Zhang Yong and more — plus <a href="https://x.com/hiltinguo/articles" target="_blank" rel="noopener">Hil\'s own X articles</a> where she has already applied them. Same progressive tree: phase → attitude / strategy / execution → theme → lesson. Where several founders say the same thing, it\'s one lesson with several voices.',
  progress:"part of how we run",saved:"last saved",savedLocal:"saved in this browser",never:"never",
  weAreAt:"We are at",expand:"Expand all",collapse:"Collapse",here:"We are here",kickIn:"kick in",lessons:"lessons",
- allVoices:"All voices",voices:"voices",
+ allVoices:"All voices",voices:"voices",voicesToggle:"founder-CEOs",voicesHide:"Hide founders",
  mark:"Mark as part of how we run",marked:"✓ Part of how we run",note:"Note for us…",source:"Source",hil:"Hil\'s take",
  modeNote:"Personal copy — your ✓ marks, notes and phase are saved in this browser only.",
  unsaved:n=>`${n} unsaved change${n>1?"s":""} — saving publishes a new version for everyone`,discard:"Discard",save:"Save to page",
@@ -602,19 +607,25 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",
 
 let viewPhase=state.phase;
 const openThemes=new Set(); const openLeaves=new Set();
+let voicesOpen=false;
 
 // ---------- render ----------
 function render(){ applyLang(); renderVoices(); renderSpine(); renderTree(); renderProgress(); }
 $("#langBtn").addEventListener("click",()=>{LANG=zh()?"en":"zh";try{localStorage.setItem("fcp-lang",LANG)}catch(e){}render()});
 function renderVoices(){
-  const n=id=>L.filter(x=>x.v.includes(id)).length;
-  let h=`<button class="vchip all" data-v="" aria-pressed="${F.voice===""?"true":"false"}">${T("allVoices")} · ${VOICES.length}</button>`;
-  for(const V of VOICES) h+=`<button class="vchip" data-v="${V.id}" aria-pressed="${F.voice===V.id?"true":"false"}" title="${esc(V.src)}${V.note?" · "+esc(V.note):""}"><span class="av" style="background:${V.c}">${esc(initials(V.n))}</span>${esc(VN(V))}<span class="co">${esc(V.co)} · ${esc(V.cap)}</span></button>`;
-  $("#voices").innerHTML=h;
-  const V=VMAP[F.voice]; const vn=$("#vnote"); if(vn) vn.textContent=V?`${VN(V)} · ${V.co} (${V.cap}) · ${V.src}${V.note?" · "+V.note:""}`:"";
+  const box=$("#voices"); box.classList.toggle("open",voicesOpen);
+  const V=VMAP[F.voice];
+  const toggleLabel=voicesOpen?T("voicesHide"):(V?`${VN(V)} · ${V.co}`:`${VOICES.length} ${T("voicesToggle")}`);
+  let pills=`<button class="vchip all" data-v="" aria-pressed="${F.voice===""?"true":"false"}">${T("allVoices")} · ${VOICES.length}</button>`;
+  for(const X of VOICES) pills+=`<button class="vchip" data-v="${X.id}" aria-pressed="${F.voice===X.id?"true":"false"}" title="${esc(X.src)}${X.note?" · "+esc(X.note):""}"><span class="av" style="background:${X.c}">${esc(initials(X.n))}</span>${esc(VN(X))}<span class="co">${esc(X.co)} · ${esc(X.cap)}</span></button>`;
+  box.innerHTML=`<button class="vchip all vtoggle" data-act="vtoggle" aria-expanded="${voicesOpen}">${esc(toggleLabel)}<span class="chev">${voicesOpen?"▴":"▾"}</span></button><span class="vpills">${pills}</span>`;
+  const vn=$("#vnote"); if(vn) vn.textContent=voicesOpen&&V?`${VN(V)} · ${V.co} (${V.cap}) · ${V.src}${V.note?" · "+V.note:""}`:"";
   $("#nLessons").textContent=L.length; $("#nVoices").textContent=VOICES.length;
 }
-$("#voices").addEventListener("click",e=>{const b=e.target.closest(".vchip");if(!b)return;F.voice=b.dataset.v;render()});
+$("#voices").addEventListener("click",e=>{
+  if(e.target.closest("[data-act=vtoggle]")){voicesOpen=!voicesOpen;renderVoices();return}
+  const b=e.target.closest(".vchip");if(!b||b.dataset.v===undefined)return;F.voice=b.dataset.v;render();
+});
 function renderSpine(){
   let h="";
   for(const P of PHASES){
