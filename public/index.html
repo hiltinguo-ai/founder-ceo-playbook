@@ -601,7 +601,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 let viewPhase=state.phase;
-const openThemes=new Set(); const openLeaves=new Set(); const groupInited=new Set();
+const openThemes=new Set(); const openLeaves=new Set();
 
 // ---------- render ----------
 function render(){ applyLang(); renderVoices(); renderSpine(); renderTree(); renderProgress(); }
@@ -649,7 +649,6 @@ function renderTree(){
     const gItems=items.filter(x=>G.themes.includes(x.th));
     if(!gItems.length) continue;
     const gkey=P.p+":g:"+G.id;
-    if(!groupInited.has(gkey)){ openThemes.add(gkey); groupInited.add(gkey); }
     const gd=gItems.filter(x=>get(x.id).done).length;
     let themes="";
     for(const tid of G.themes){
@@ -730,13 +729,6 @@ async function save(){
 }
 let toastT; function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true},4000)}
 
-// open the first theme so the tree isn't bare
-(function(){
-  GROUPS.forEach(g=>openThemes.add(viewPhase+":g:"+g.id));
-  const firstG=GROUPS.find(g=>L.some(x=>x.ph===viewPhase&&g.themes.includes(x.th)));
-  const firstTh=firstG&&firstG.themes.find(tid=>L.some(x=>x.ph===viewPhase&&x.th===tid));
-  if(firstTh) openThemes.add(viewPhase+":"+firstTh);
-})();
 render();
 (async()=>{
   try{ if(window.claude&&typeof window.claude.use==="function") artifactNS=await window.claude.use("artifact"); }catch(e){artifactNS=null}
